@@ -8,11 +8,13 @@
     <None Remove="Infrastructure\" />
     <None Remove="Controllers\" />
     <None Remove="Infrastructure\Extensions\" />
+    <None Remove="Model\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\" />
     <Folder Include="Controllers\" />
     <Folder Include="Infrastructure\Extensions\" />
+    <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NewLake.Core\NewLake.Core.csproj">

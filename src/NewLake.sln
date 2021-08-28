@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.810.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{83FE2D13-3924-4B12-A82A-BE09C1197478}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLake.Api", "services\NewLake.Api\NewLake.Api.csproj", "{CE3424A1-B6D7-4835-9BD2-CD9B60FCC8FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLake.Core", "services\NewLake.Core\NewLake.Core.csproj", "{30C79DAD-1923-4156-83B6-2E727E5C65E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE3424A1-B6D7-4835-9BD2-CD9B60FCC8FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE3424A1-B6D7-4835-9BD2-CD9B60FCC8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE3424A1-B6D7-4835-9BD2-CD9B60FCC8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE3424A1-B6D7-4835-9BD2-CD9B60FCC8FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30C79DAD-1923-4156-83B6-2E727E5C65E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30C79DAD-1923-4156-83B6-2E727E5C65E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30C79DAD-1923-4156-83B6-2E727E5C65E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30C79DAD-1923-4156-83B6-2E727E5C65E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C7E4FCA-5BA7-4B8D-8FEA-65C580753CDE}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CE3424A1-B6D7-4835-9BD2-CD9B60FCC8FF} = {83FE2D13-3924-4B12-A82A-BE09C1197478}
+		{30C79DAD-1923-4156-83B6-2E727E5C65E5} = {83FE2D13-3924-4B12-A82A-BE09C1197478}
+	EndGlobalSection
+EndGlobal
