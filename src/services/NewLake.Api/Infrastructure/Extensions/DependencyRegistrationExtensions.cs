@@ -10,6 +10,10 @@ namespace NewLake.Api.Infrastructure.Extensions
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
+            //rabbit mq
+            services.AddScoped(typeof(IMessageService<>), typeof(MessageService<>));
+
+            //redis cache
             services
                 .AddStackExchangeRedisExtensions<SystemTextJsonSerializer>((options) =>
             {

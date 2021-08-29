@@ -7,9 +7,11 @@
   <ItemGroup>
     <None Remove="StackExchange.Redis.Extensions.AspNetCore" />
     <None Remove="StackExchange.Redis.Extensions.System.Text.Json" />
+    <None Remove="RabbitMQ.Client" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" Version="7.1.1" />
     <PackageReference Include="StackExchange.Redis.Extensions.System.Text.Json" Version="7.1.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
   </ItemGroup>
 </Project>
