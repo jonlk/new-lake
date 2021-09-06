@@ -9,6 +9,7 @@
     <None Remove="Controllers\" />
     <None Remove="Infrastructure\Extensions\" />
     <None Remove="Model\" />
+    <None Remove="Azure.Identity" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Infrastructure\" />
