@@ -66,19 +66,10 @@ namespace NewLake.Queue.Listener
                 {
                     _logger.LogInformation($"Received the following message: {message}");
 
-                    await Task.Delay(1000, stoppingToken); // simulate an async email process
+                    await Task.Delay(1000, stoppingToken); // simulate an async  process
 
                     _channel.BasicAck(ea.DeliveryTag, false);
-                }
-                catch (JsonException)
-                {
-                    _logger.LogError($"JSON Parse Error: '{message}'.");
-                    _channel.BasicNack(ea.DeliveryTag, false, false);
-                }
-                catch (AlreadyClosedException)
-                {
-                    _logger.LogInformation("RabbitMQ is closed!");
-                }
+                }             
                 catch (Exception e)
                 {
                     _logger.LogError(default, e, e.Message);

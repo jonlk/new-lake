@@ -7,10 +7,7 @@ namespace NewLake.Api
 {
     public class Program
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+        public static void Main(string[] args) { CreateHostBuilder(args).Build().Run(); }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
@@ -19,18 +16,16 @@ namespace NewLake.Api
                 webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     var settings = config.Build();
-
                     config.AddAzureAppConfiguration(options =>
                     {
                         options.Connect(settings["ConnectionStrings:AppConfig"])
                                 .ConfigureKeyVault(kv =>
                                 {
-                                    var tenantId = settings["AppSettings:TenantId"];
-                                    var clientId = settings["AppSettings:ClientId"];
-                                    var clientSecret = settings["AppSettings:ClientSecret"];
-
                                     kv.SetCredential(
-                                        new ClientSecretCredential(tenantId, clientId, clientSecret));
+                                        new ClientSecretCredential(
+                                            settings["AppSettings:TenantId"],
+                                            settings["AppSettings:ClientId"],
+                                            settings["AppSettings:ClientSecret"]));
                                 });
                     });
                 });
