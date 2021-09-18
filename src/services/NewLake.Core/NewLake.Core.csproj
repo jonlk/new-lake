@@ -11,12 +11,13 @@
     <None Remove="Azure.Security.KeyVault.Secrets" />
     <None Remove="Azure.Identity" />
     <None Remove="Microsoft.Extensions.Configuration.AzureAppConfiguration" />
+    <None Remove="Microsoft.Azure.AppConfiguration.AspNetCore" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" Version="7.1.1" />
     <PackageReference Include="StackExchange.Redis.Extensions.System.Text.Json" Version="7.1.1" />
     <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.AzureAppConfiguration" Version="4.5.0" />
     <PackageReference Include="Azure.Identity" Version="1.4.1" />
+    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="4.5.0" />
   </ItemGroup>
 </Project>
