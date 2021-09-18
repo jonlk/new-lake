@@ -20,9 +20,6 @@ namespace NewLake.Api
         {
             services.AddControllers();
             services.AddInfrastructureServices(_configuration);
-
-          
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

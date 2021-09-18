@@ -6,20 +6,17 @@ namespace NewLake.Core
 {
     public class CacheService : ICacheService
     {
-        private readonly IRedisDatabase _database;      
-        private readonly DateTimeOffset _cacheExpiration;
+        private readonly IRedisDatabase _database;         
 
         public CacheService(IRedisCacheClient redisCacheClient)
         {
             _database = redisCacheClient
-                .GetDbFromConfiguration();
-
-            _cacheExpiration = DateTimeOffset.UtcNow.AddHours(6);
+                .GetDbFromConfiguration();            
         }
 
         public async Task<string> AddItemAsync(string key, string value)
         {
-            await _database.AddAsync(key, value, _cacheExpiration);
+            await _database.AddAsync(key, value, DateTimeOffset.UtcNow.AddHours(6));
             return value;
         }
 
