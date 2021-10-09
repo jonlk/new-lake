@@ -1,31 +1,30 @@
 ﻿using System;
 using System.Text;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using RabbitMQ.Client.Exceptions;
 
 namespace NewLake.Queue.Listener
 {
-    public class ImageConversionService : BackgroundService
+    public class QueueListenerService : BackgroundService
     {
         private ConnectionFactory _factory;
         private IConnection _connection;
         private IModel _channel;
         private string _queueName;
 
-        private readonly ILogger<ImageConversionService> _logger;
+        private readonly ILogger<QueueListenerService> _logger;
 
-        public ImageConversionService(ILogger<ImageConversionService> logger)
+        public QueueListenerService(ILogger<QueueListenerService> logger)
         {
             _logger = logger;
+            _queueName = "hello";
         }
 
-        public override Task StartAsync(CancellationToken cancellationToken)
+        public async override Task StartAsync(CancellationToken cancellationToken)
         {
             _factory = new ConnectionFactory()
             {
@@ -36,20 +35,15 @@ namespace NewLake.Queue.Listener
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();
 
-            _channel.ExchangeDeclare(
-                 exchange: "images",
-                 type: ExchangeType.Topic,
-                 durable: true);
-
-            _queueName = _channel.QueueDeclare().QueueName;
-
-            _channel.QueueBind(queue: _queueName,
-                                  exchange: "images",
-                                  routingKey: "images.convert.#");
+            _channel.QueueDeclare(queue: _queueName,
+                                 durable: false,
+                                 exclusive: false,
+                                 autoDelete: false,
+                                 arguments: null);
 
             _channel.BasicQos(0, 1, false);
 
-            return base.StartAsync(cancellationToken);
+            await base.StartAsync(cancellationToken);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -58,18 +52,20 @@ namespace NewLake.Queue.Listener
 
             var consumer = new AsyncEventingBasicConsumer(_channel);
 
+            _logger.LogInformation($"Started listening on Queue: {_queueName}");
+
             consumer.Received += async (bc, ea) =>
             {
                 var message = Encoding.UTF8.GetString(ea.Body.ToArray());
 
                 try
                 {
-                    _logger.LogInformation($"Received the following message: {message}");
+                    _logger.LogInformation($"Receiving message: {message}");
 
-                    await Task.Delay(1000, stoppingToken); // simulate an async  process
+                    await Task.Delay(5000, stoppingToken); // simulate an async  process
 
                     _channel.BasicAck(ea.DeliveryTag, false);
-                }             
+                }
                 catch (Exception e)
                 {
                     _logger.LogError(default, e, e.Message);
@@ -83,9 +79,9 @@ namespace NewLake.Queue.Listener
 
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
-            await base.StopAsync(cancellationToken);
             _connection.Close();
-            _logger.LogInformation("RabbitMQ connection is closed.");
+            _logger.LogInformation($"Stopped listening on Queue: {_queueName}");
+            await base.StopAsync(cancellationToken);
         }
     }
 }

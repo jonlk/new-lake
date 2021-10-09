@@ -12,6 +12,9 @@
     <None Remove="Azure.Identity" />
     <None Remove="Microsoft.Extensions.Configuration.AzureAppConfiguration" />
     <None Remove="Microsoft.Azure.AppConfiguration.AspNetCore" />
+    <None Remove="Services\" />
+    <None Remove="Services\Message\" />
+    <None Remove="Services\Caching\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" Version="7.1.1" />
@@ -19,5 +22,10 @@
     <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
     <PackageReference Include="Azure.Identity" Version="1.4.1" />
     <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Services\Messaging\" />
+    <Folder Include="Services\Caching\" />
   </ItemGroup>
 </Project>

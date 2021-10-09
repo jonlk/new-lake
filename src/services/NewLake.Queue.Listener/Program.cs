@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace NewLake.Queue.Listener
@@ -18,7 +14,7 @@ namespace NewLake.Queue.Listener
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<ImageConversionService>();
+                    services.AddHostedService<QueueListenerService>();
                 });
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NewLake.Core;
+using NewLake.Core.Services.Messaging;
 
 namespace NewLake.Api.Controllers
 {

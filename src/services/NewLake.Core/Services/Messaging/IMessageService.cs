@@ -1,5 +1,4 @@
-﻿using System;
-namespace NewLake.Core
+﻿namespace NewLake.Core.Services.Messaging
 {
     public interface IMessageService<TMessage>
     {
