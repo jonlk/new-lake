@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NewLake.Api.Model;
 using NewLake.Core;
+using StackExchange.Redis;
 
 namespace NewLake.Api.Controllers
 {
@@ -12,13 +13,16 @@ namespace NewLake.Api.Controllers
     {
         private readonly ILogger<CacheController> _logger;
         private readonly ICacheService _cacheService;
+        private readonly IConnectionMultiplexer _connectionMultiplexer;
 
         public CacheController(
             ILogger<CacheController> logger,
-            ICacheService cacheService)
+            ICacheService cacheService,
+            IConnectionMultiplexer connectionMultiplexer)
         {
-            _cacheService = cacheService;
             _logger = logger;
+            _cacheService = cacheService;
+            _connectionMultiplexer = connectionMultiplexer;
         }
 
         [HttpPost]
@@ -27,6 +31,14 @@ namespace NewLake.Api.Controllers
         {
             var value = await _cacheService
                 .AddItemAsync(request.Key, request.Value);
+
+            await _connectionMultiplexer
+                .GetSubscriber()
+                .SubscribeAsync("__keyspace@0__:*", async (channel, message) =>
+                {
+                    _logger.LogInformation($"Message: {message} , Channel: {channel}");
+                    await _connectionMultiplexer.GetSubscriber().UnsubscribeAllAsync();
+                });
 
             return Ok($"Key:{request.Key} Value:{request.Value} :: {DateTime.UtcNow} UTC");
         }
