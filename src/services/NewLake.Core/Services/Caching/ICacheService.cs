@@ -8,5 +8,7 @@ namespace NewLake.Core
         Task<CacheItem> SetItemAsync(CacheItem item);
         Task<CacheItem> GetItemAsync(string key);
         Task<bool> RemoveItemAsync(string key);
+
+        Task<CacheItem> GetHashItemAsync(string hashKey, string key);
     }
 }

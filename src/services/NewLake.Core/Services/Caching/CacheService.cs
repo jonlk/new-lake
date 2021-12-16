@@ -12,7 +12,7 @@ namespace NewLake.Core
         public CacheService(IRedisCacheClient redisCacheClient)
         {
             _database = redisCacheClient
-                .GetDb(0);
+                .GetDbFromConfiguration();
         }
 
         public async Task<CacheItem> SetItemAsync(CacheItem item)
@@ -31,6 +31,12 @@ namespace NewLake.Core
         public async Task<bool> RemoveItemAsync(string key)
         {
             var result = await _database.RemoveAsync(key);
+            return result;
+        }
+
+        public async Task<CacheItem> GetHashItemAsync(string hashKey, string key)
+        {
+            var result = await _database.HashGetAsync<CacheItem>(hashKey, key);
             return result;
         }
     }

@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NewLake.Core.Domain.Model;
 using NewLake.Core;
+using NewLake.Core.Domain.Model;
 using StackExchange.Redis;
 
 namespace NewLake.Api.Controllers
@@ -64,6 +65,17 @@ namespace NewLake.Api.Controllers
             if (!result) { return NotFound($"Item with key {id} not found"); }
 
             return Ok($"Item with key {id} deleted successfully");
+        }
+
+        //Testing
+        [HttpGet]
+        [Route("getAllHash/{hashKey}/{key}")]
+        public async Task<ActionResult<object>>
+            GetHashItemAsync(string hashKey, string key)
+        {
+            var value = await _cacheService
+                .GetHashItemAsync(hashKey, key);
+            return Ok(value);
         }
     }
 }
