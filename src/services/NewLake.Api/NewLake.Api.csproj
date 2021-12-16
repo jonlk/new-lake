@@ -19,7 +19,6 @@
     <Folder Include="Infrastructure\" />
     <Folder Include="Controllers\" />
     <Folder Include="Infrastructure\Extensions\" />
-    <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NewLake.Core\NewLake.Core.csproj">

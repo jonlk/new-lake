@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NewLake.Api.Model;
+using NewLake.Core.Domain.Model;
 using NewLake.Core;
 using StackExchange.Redis;
 
@@ -27,10 +27,10 @@ namespace NewLake.Api.Controllers
 
         [HttpPost]
         [Route("set")]
-        public async Task<ActionResult<string>> SetValueAsync([FromBody] CacheRequest request)
+        public async Task<ActionResult<string>> SetValueAsync([FromBody] CacheItem request)
         {
             var value = await _cacheService
-                .AddItemAsync(request.Key, request.Value);
+                .SetItemAsync(request);
 
             await _connectionMultiplexer
                 .GetSubscriber()
@@ -45,7 +45,7 @@ namespace NewLake.Api.Controllers
 
         [HttpGet]
         [Route("get/{id}")]
-        public async Task<ActionResult<string>> GetValueAsync(string id)
+        public async Task<ActionResult<CacheItem>> GetValueAsync(string id)
         {
             var value = await _cacheService.GetItemAsync(id);
 
