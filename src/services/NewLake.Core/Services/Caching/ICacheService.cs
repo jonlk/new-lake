@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
+using NewLake.Core.Domain.Model;
 
 namespace NewLake.Core
 {
     public interface ICacheService
     {
-        Task<string> AddItemAsync(string key, string value);
-        Task<string> GetItemAsync(string key);
+        Task<CacheItem> SetItemAsync(CacheItem item);
+        Task<CacheItem> GetItemAsync(string key);
         Task<bool> RemoveItemAsync(string key);
     }
 }

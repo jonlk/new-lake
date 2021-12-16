@@ -11,17 +11,19 @@ namespace NewLake.Core.Services.Messaging
         IMessageService<TMessage>
     {
         private readonly ILogger<MessageService<TMessage>> _logger;
+        private string _queueName;
 
         public MessageService(ILogger<MessageService<TMessage>> logger)
         {
             _logger = logger;
+            _queueName = "local-task-queue";
 
             _channel.BasicAcks += (sender, ea) =>
             {
                 _logger.LogInformation($"Message Tag: {ea.DeliveryTag} successfully queued at {DateTime.Now}");
             };
 
-            _channel.QueueDeclare(queue: "hello",
+            _channel.QueueDeclare(queue: _queueName,
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
@@ -39,7 +41,7 @@ namespace NewLake.Core.Services.Messaging
             _logger.LogInformation($"Dispatching message: {message} with Tag: { _channel.NextPublishSeqNo}");
 
             _channel.BasicPublish(exchange: $"",
-                                      routingKey: $"hello",
+                                      routingKey: _queueName,
                                       basicProperties: properties,
                                       body: body);
         }

@@ -21,7 +21,7 @@ namespace NewLake.Queue.Listener
         public QueueListenerService(ILogger<QueueListenerService> logger)
         {
             _logger = logger;
-            _queueName = "hello";
+            _queueName = "local-task-queue";
         }
 
         public async override Task StartAsync(CancellationToken cancellationToken)

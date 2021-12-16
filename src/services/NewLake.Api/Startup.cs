@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NewLake.Api.Infrastructure.Extensions;
+using NewLake.Core.Services.Bulk;
 
 namespace NewLake.Api
 {
@@ -19,8 +20,14 @@ namespace NewLake.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+
+            services.AddGrpc(opt =>
+            {
+                opt.EnableDetailedErrors = true;
+            });
+
             services.AddInfrastructureServices(_configuration);
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
@@ -31,11 +38,12 @@ namespace NewLake.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-           
+
             app.UseRouting();
-            
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGrpcService<BulkInfoService>();
                 endpoints.MapControllers();
             });
         }

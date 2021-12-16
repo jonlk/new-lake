@@ -1,10 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Proto\bulkdata.proto" />
     <None Remove="StackExchange.Redis.Extensions.AspNetCore" />
     <None Remove="StackExchange.Redis.Extensions.System.Text.Json" />
     <None Remove="RabbitMQ.Client" />
@@ -17,15 +18,20 @@
     <None Remove="Services\Caching\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" Version="7.1.1" />
-    <PackageReference Include="StackExchange.Redis.Extensions.System.Text.Json" Version="7.1.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
+    <PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" Version="7.2.1" />
+    <PackageReference Include="StackExchange.Redis.Extensions.System.Text.Json" Version="7.2.1" />
     <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
-    <PackageReference Include="Azure.Identity" Version="1.4.1" />
-    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="4.5.0" />
+    <PackageReference Include="Azure.Identity" Version="1.5.0" />
+    <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="4.5.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
     <Folder Include="Services\Messaging\" />
     <Folder Include="Services\Caching\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="Proto\bulkdata.proto">
+      <SubType>Component</SubType>
+    </Protobuf>
   </ItemGroup>
 </Project>
