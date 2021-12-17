@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
@@ -16,11 +16,23 @@ namespace NewLake.Core.Services.Bulk
             _logger = logger;
         }
 
-        public override Task<ReturnMessage> SendBulkMessage(MessagePacket request, ServerCallContext context)
+        public override async Task<ReturnMessage> SendBulkMessage(MessagePacket request, ServerCallContext context)
         {
-            var messages = request.InfoMessages.ToList();
+            _logger.LogInformation($"Receiving Packet Id: {request.PacketId}\n");
 
-            return base.SendBulkMessage(request, context);
+            await Task.Delay(2000);
+
+            _logger.LogInformation($"Processing...\n");
+
+            await Task.Delay(5000);
+
+            _logger.LogInformation($"Completed\n");
+
+            var returnMessage = new ReturnMessage { InfoMessage = "Success!" };
+
+            await Task.Delay(2000);
+
+            return returnMessage;
         }
     }
 }
