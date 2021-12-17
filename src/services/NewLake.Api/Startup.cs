@@ -25,7 +25,7 @@ namespace NewLake.Api
                 opt.EnableDetailedErrors = true;
             });
 
-            services.AddInfrastructureServices(_configuration);
+            services.AddCachingServices(_configuration);
             services.AddControllers();
         }
 

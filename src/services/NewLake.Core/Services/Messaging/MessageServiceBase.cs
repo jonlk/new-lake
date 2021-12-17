@@ -6,7 +6,7 @@ namespace NewLake.Core.Services.Messaging
     {
         protected readonly ConnectionFactory _factory;
         protected readonly IConnection _connection;
-        protected readonly IModel _channel;
+        protected readonly IModel _channel;     
 
         protected MessageServiceBase()
         {

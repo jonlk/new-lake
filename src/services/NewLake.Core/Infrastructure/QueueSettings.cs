@@ -1,4 +1,4 @@
-﻿namespace NewLake.Queue.Listener.Infrastructure
+﻿namespace NewLake.Core.Infrastructure
 {
     public class QueueSettings
     {

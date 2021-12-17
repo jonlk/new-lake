@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NewLake.Queue.Listener.Infrastructure;
+using NewLake.Core.Infrastructure;
 
 namespace NewLake.Queue.Listener
 {
