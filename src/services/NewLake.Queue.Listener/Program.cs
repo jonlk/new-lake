@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NewLake.Queue.Listener.Infrastructure;
 
 namespace NewLake.Queue.Listener
 {
@@ -14,7 +15,12 @@ namespace NewLake.Queue.Listener
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+
+                    services
+                    .Configure<QueueSettings>(hostContext.Configuration.GetSection("QueueSettings"));
+
                     services.AddHostedService<QueueListenerService>();
+
                 });
     }
 }
