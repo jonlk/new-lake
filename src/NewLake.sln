@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewLake.Core", "services\Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewLake.Queue.Listener", "services\NewLake.Queue.Listener\NewLake.Queue.Listener.csproj", "{488610FB-9A00-4983-A8A7-A086ABC2B600}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLake.GrpcReceive.Service", "services\NewLake.GrpcReceive.Service\NewLake.GrpcReceive.Service.csproj", "{E0DCC48A-2648-45B3-B7A9-B337656F978B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewLake.GrpcMessage.Sender", "services\NewLake.GrpcReceive.Service\NewLake.GrpcMessage.Sender.csproj", "{E0DCC48A-2648-45B3-B7A9-B337656F978B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
