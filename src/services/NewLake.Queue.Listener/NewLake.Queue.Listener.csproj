@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -11,5 +11,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="RabbitMQ.Client" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NewLake.Core\NewLake.Core.csproj" />
   </ItemGroup>
 </Project>

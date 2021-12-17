@@ -16,7 +16,6 @@
     <None Remove="Azure.Identity" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Infrastructure\" />
     <Folder Include="Controllers\" />
     <Folder Include="Infrastructure\Extensions\" />
   </ItemGroup>

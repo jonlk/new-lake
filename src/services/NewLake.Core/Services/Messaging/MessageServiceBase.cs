@@ -1,4 +1,6 @@
-﻿using RabbitMQ.Client;
+﻿using Microsoft.Extensions.Options;
+using NewLake.Core.Infrastructure;
+using RabbitMQ.Client;
 
 namespace NewLake.Core.Services.Messaging
 {
@@ -7,14 +9,19 @@ namespace NewLake.Core.Services.Messaging
         protected readonly ConnectionFactory _factory;
         protected readonly IConnection _connection;
         protected readonly IModel _channel;
+        protected readonly QueueSettings _queueSettings;
 
-        protected MessageServiceBase()
-        {
-            //TODO: Need to pass host in config options
-            _factory = new ConnectionFactory() { HostName = "localhost" };
+        protected MessageServiceBase(IOptions<QueueSettings> options)
+        {            
+            _queueSettings = options.Value;
+
+            _factory = new ConnectionFactory()
+            {
+                HostName = _queueSettings.HostName
+            };
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.ConfirmSelect();          
+            _channel.ConfirmSelect();
         }
     }
 }

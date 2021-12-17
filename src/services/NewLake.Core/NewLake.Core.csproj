@@ -25,7 +25,6 @@
     <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="4.5.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\Messaging\" />
     <Folder Include="Services\Caching\" />
   </ItemGroup>
   <ItemGroup>
