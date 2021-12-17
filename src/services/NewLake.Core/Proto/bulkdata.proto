@@ -2,7 +2,7 @@
 
 option csharp_namespace = "NewLake.Core.GrpcProto.Services";
 
-import "Proto/enums.proto";
+import "enums.proto";
 import "google/protobuf/timestamp.proto";
 
 service NewLakeGrpcService{
@@ -20,7 +20,8 @@ message InfoMessage {
 }
 
 message MessagePacket{
-	repeated InfoMessage infoMessages=1;
-	string notes=2;
-	MessageStatus messageStatus=3;
+	int32 packetId=1;
+	repeated InfoMessage infoMessages=2;
+	string notes=3;
+	MessageStatus messageStatus=4;
 }
