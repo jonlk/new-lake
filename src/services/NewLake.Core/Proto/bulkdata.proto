@@ -1,16 +1,26 @@
 ﻿syntax = "proto3";
 
-option csharp_namespace = "NewLake.Core.GrpcProto";
+option csharp_namespace = "NewLake.Core.GrpcProto.Services";
 
-service NewLakeReceiverService{
-	rpc SendBulkMessage (InfoMessage) returns (ReturnMessage);
+import "Proto/enums.proto";
+import "google/protobuf/timestamp.proto";
+
+service NewLakeGrpcService{
+	rpc SendBulkMessage (MessagePacket) returns (ReturnMessage);
 }
 
 message ReturnMessage{
 	string infoMessage=1;
 }
 
-message InfoMessage{
+message InfoMessage {
 	int32 messageId=1;
-	string messageDate=2;
+	string messageData=2;	
+	google.protobuf.Timestamp messageTime=3;
+}
+
+message MessagePacket{
+	repeated InfoMessage infoMessages=1;
+	string notes=2;
+	MessageStatus messageStatus=3;
 }

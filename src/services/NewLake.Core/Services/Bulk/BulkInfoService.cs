@@ -1,14 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
-using NewLake.Core.GrpcProto;
+using NewLake.Core.GrpcProto.Services;
 
 namespace NewLake.Core.Services.Bulk
 {
     public class BulkInfoService
-        : NewLakeReceiverService.NewLakeReceiverServiceBase
+        : NewLakeGrpcService.NewLakeGrpcServiceBase
     {
-
         private readonly ILogger<BulkInfoService> _logger;
 
         public BulkInfoService(ILogger<BulkInfoService> logger)
@@ -16,15 +16,11 @@ namespace NewLake.Core.Services.Bulk
             _logger = logger;
         }
 
-        public override Task<ReturnMessage> SendBulkMessage(InfoMessage request,
-                                                            ServerCallContext context)
+        public override Task<ReturnMessage> SendBulkMessage(MessagePacket request, ServerCallContext context)
         {
-            var returnMessage = new ReturnMessage
-            {
-                InfoMessage = "Info about the event"
-            };
+            var messages = request.InfoMessages.ToList();
 
-            return Task.FromResult(returnMessage);
+            return base.SendBulkMessage(request, context);
         }
     }
 }

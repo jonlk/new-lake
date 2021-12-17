@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Remove="Proto\bulkdata.proto" />
+    <None Remove="Proto\enums.proto" />
     <None Remove="StackExchange.Redis.Extensions.AspNetCore" />
     <None Remove="StackExchange.Redis.Extensions.System.Text.Json" />
     <None Remove="RabbitMQ.Client" />
@@ -28,6 +29,9 @@
     <Folder Include="Services\Caching\" />
   </ItemGroup>
   <ItemGroup>
+    <Protobuf Include="Proto\enums.proto" GrpcServices="None">
+      <SubType>Component</SubType>
+    </Protobuf>
     <Protobuf Include="Proto\bulkdata.proto">
       <SubType>Component</SubType>
     </Protobuf>
