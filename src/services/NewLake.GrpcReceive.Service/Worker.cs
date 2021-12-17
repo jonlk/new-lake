@@ -1,4 +1,4 @@
-namespace NewLake.GrpcReceive.Service
+namespace NewLake.GrpcMessage.Sender
 {
     public class Worker : BackgroundService
     {

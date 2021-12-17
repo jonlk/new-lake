@@ -20,7 +20,6 @@ namespace NewLake.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddGrpc(opt =>
             {
                 opt.EnableDetailedErrors = true;

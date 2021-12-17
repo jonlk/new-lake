@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using NewLake.Queue.Listener.Infrastructure;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -14,28 +16,30 @@ namespace NewLake.Queue.Listener
         private ConnectionFactory _factory;
         private IConnection _connection;
         private IModel _channel;
-        private string _queueName;
 
         private readonly ILogger<QueueListenerService> _logger;
+        private readonly QueueSettings _queueSettings;
 
-        public QueueListenerService(ILogger<QueueListenerService> logger)
+        public QueueListenerService(
+            IOptions<QueueSettings> options,
+            ILogger<QueueListenerService> logger)
         {
+            _queueSettings = options.Value;
             _logger = logger;
-            _queueName = "local-task-queue";
         }
 
         public async override Task StartAsync(CancellationToken cancellationToken)
         {
             _factory = new ConnectionFactory()
             {
-                HostName = "localhost",
+                HostName = _queueSettings.HostName,
                 DispatchConsumersAsync = true
             };
 
             _connection = _factory.CreateConnection();
             _channel = _connection.CreateModel();
 
-            _channel.QueueDeclare(queue: _queueName,
+            _channel.QueueDeclare(queue: _queueSettings.QueueName,
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
@@ -52,7 +56,7 @@ namespace NewLake.Queue.Listener
 
             var consumer = new AsyncEventingBasicConsumer(_channel);
 
-            _logger.LogInformation($"Started listening on Queue: {_queueName}");
+            _logger.LogInformation($"Started listening on Queue: {_queueSettings.QueueName}");
 
             consumer.Received += async (bc, ea) =>
             {
@@ -72,7 +76,9 @@ namespace NewLake.Queue.Listener
                 }
             };
 
-            _channel.BasicConsume(queue: _queueName, autoAck: false, consumer: consumer);
+            _channel.BasicConsume(queue: _queueSettings.QueueName,                
+                                    autoAck: false,
+                                    consumer: consumer);
 
             await Task.CompletedTask;
         }
@@ -80,7 +86,7 @@ namespace NewLake.Queue.Listener
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
             _connection.Close();
-            _logger.LogInformation($"Stopped listening on Queue: {_queueName}");
+            _logger.LogInformation($"Stopped listening on Queue: {_queueSettings.QueueName}");
             await base.StopAsync(cancellationToken);
         }
     }

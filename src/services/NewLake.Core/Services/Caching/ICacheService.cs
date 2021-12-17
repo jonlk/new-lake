@@ -3,10 +3,11 @@ using NewLake.Core.Domain.Model;
 
 namespace NewLake.Core
 {
-    public interface ICacheService
+    public interface ICacheService<TCacheItem> 
+        where TCacheItem : CacheItemBase
     {
-        Task<CacheItem> SetItemAsync(CacheItem item);
-        Task<CacheItem> GetItemAsync(string key);
-        Task<bool> RemoveItemAsync(string key);
+        Task<TCacheItem> SetItemAsync(TCacheItem item);
+        Task<TCacheItem> GetItemAsync(string key);
+        Task RemoveItemAsync(string key);
     }
 }

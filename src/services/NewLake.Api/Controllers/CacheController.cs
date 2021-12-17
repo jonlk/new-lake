@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NewLake.Core.Domain.Model;
 using NewLake.Core;
+using NewLake.Core.Domain.Model;
 using StackExchange.Redis;
 
 namespace NewLake.Api.Controllers
@@ -12,12 +11,12 @@ namespace NewLake.Api.Controllers
     public class CacheController : ControllerBase
     {
         private readonly ILogger<CacheController> _logger;
-        private readonly ICacheService _cacheService;
+        private readonly ICacheService<CacheItem> _cacheService;
         private readonly IConnectionMultiplexer _connectionMultiplexer;
 
         public CacheController(
             ILogger<CacheController> logger,
-            ICacheService cacheService,
+            ICacheService<CacheItem> cacheService,
             IConnectionMultiplexer connectionMultiplexer)
         {
             _logger = logger;
@@ -27,7 +26,7 @@ namespace NewLake.Api.Controllers
 
         [HttpPost]
         [Route("set")]
-        public async Task<ActionResult<string>> SetValueAsync([FromBody] CacheItem request)
+        public async Task<ActionResult<CacheItem>> SetValueAsync([FromBody] CacheItem request)
         {
             var value = await _cacheService
                 .SetItemAsync(request);
@@ -40,7 +39,7 @@ namespace NewLake.Api.Controllers
                     await _connectionMultiplexer.GetSubscriber().UnsubscribeAllAsync();
                 });
 
-            return Ok($"Key:{request.Key} Value:{request.Value} :: {DateTime.UtcNow} UTC");
+            return Ok(request);
         }
 
         [HttpGet]
@@ -58,11 +57,7 @@ namespace NewLake.Api.Controllers
         [Route("delete/{id}")]
         public async Task<ActionResult<bool>> RemoveValueAsync(string id)
         {
-            var result = await _cacheService
-                .RemoveItemAsync(id);
-
-            if (!result) { return NotFound($"Item with key {id} not found"); }
-
+            await _cacheService.RemoveItemAsync(id);
             return Ok($"Item with key {id} deleted successfully");
         }
     }

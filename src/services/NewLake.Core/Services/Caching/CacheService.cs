@@ -1,37 +1,45 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Distributed;
 using NewLake.Core.Domain.Model;
-using StackExchange.Redis.Extensions.Core.Abstractions;
+using NewLake.Core.Infrastructure;
 
 namespace NewLake.Core
 {
-    public class CacheService : ICacheService
+    public class CacheService<TCacheItem>
+        : ICacheService<TCacheItem>
+         where TCacheItem : CacheItemBase
     {
-        private readonly IRedisDatabase _database;
+        private readonly IDistributedCache _database;
 
-        public CacheService(IRedisCacheClient redisCacheClient)
+        public CacheService(IDistributedCache database)
         {
-            _database = redisCacheClient
-                .GetDb(0);
+            _database = database;
         }
 
-        public async Task<CacheItem> SetItemAsync(CacheItem item)
+        public async Task<TCacheItem> SetItemAsync(TCacheItem item)
         {
             item.LastUpdated = DateTime.Now;
-            await _database.AddAsync(item.Key, item);
+
+            await _database
+                .SetAsync(item.Key, item.SerializeToByteArray());
+
             return item;
         }
 
-        public async Task<CacheItem> GetItemAsync(string key)
+        public async Task<TCacheItem> GetItemAsync(string key)
         {
-            var result = await _database.GetAsync<CacheItem>(key);
+            var bResult = await _database.GetAsync(key);
+
+            var result = ByteArrayExtensions
+                .Deserialize<TCacheItem>(bResult);
+
             return result;
         }
 
-        public async Task<bool> RemoveItemAsync(string key)
+        public async Task RemoveItemAsync(string key)
         {
-            var result = await _database.RemoveAsync(key);
-            return result;
+            await _database.RemoveAsync(key);
         }
     }
 }

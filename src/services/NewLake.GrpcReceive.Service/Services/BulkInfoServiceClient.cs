@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewLake.GrpcReceive.Service.Services
+namespace NewLake.GrpcMessage.Sender.Services
 {
     internal class BulkInfoServiceClient
     {
