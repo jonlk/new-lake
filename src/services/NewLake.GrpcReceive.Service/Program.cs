@@ -1,4 +1,4 @@
-using NewLake.GrpcMessage.Sender;
+using NewLake.GrpcClient;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>

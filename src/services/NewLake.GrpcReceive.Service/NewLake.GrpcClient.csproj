@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-NewLake.GrpcReceive.Service-9063CA42-366E-4509-B930-D58372F13484</UserSecretsId>
+    <UserSecretsId>dotnet-NewLake.GrpcMessage.Sender-9063CA42-366E-4509-B930-D58372F13484</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
