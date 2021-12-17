@@ -2,6 +2,8 @@
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using NewLake.Core.Infrastructure;
 using RabbitMQ.Client;
 
 namespace NewLake.Core.Services.Messaging
@@ -11,19 +13,20 @@ namespace NewLake.Core.Services.Messaging
         IMessageService<TMessage>
     {
         private readonly ILogger<MessageService<TMessage>> _logger;
-        private string _queueName;
 
-        public MessageService(ILogger<MessageService<TMessage>> logger)
+        public MessageService(
+            IOptions<QueueSettings> options,
+            ILogger<MessageService<TMessage>> logger)
+            : base(options)
         {
             _logger = logger;
-            _queueName = "local-task-queue";
 
             _channel.BasicAcks += (sender, ea) =>
             {
                 _logger.LogInformation($"Message Tag: {ea.DeliveryTag} successfully queued at {DateTime.Now}");
             };
 
-            _channel.QueueDeclare(queue: _queueName,
+            _channel.QueueDeclare(queue: _queueSettings.QueueName,
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
@@ -41,7 +44,7 @@ namespace NewLake.Core.Services.Messaging
             _logger.LogInformation($"Dispatching message: {message} with Tag: { _channel.NextPublishSeqNo}");
 
             _channel.BasicPublish(exchange: $"",
-                                      routingKey: _queueName,
+                                      routingKey: _queueSettings.QueueName,
                                       basicProperties: properties,
                                       body: body);
         }

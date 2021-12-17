@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NewLake.Api.Infrastructure.Settings;
 using NewLake.Core;
+using NewLake.Core.Infrastructure;
 using NewLake.Core.Services.Messaging;
 using StackExchange.Redis;
 
@@ -17,7 +17,7 @@ namespace NewLake.Api.Infrastructure.Extensions
             muxer.GetServer(muxer.GetEndPoints().Single())
                 .ConfigSet("notify-keyspace-events", "Kh");
 
-            services.AddSingleton<IConnectionMultiplexer>(muxer);           
+            services.AddSingleton<IConnectionMultiplexer>(muxer);
             services.AddSingleton(typeof(ICacheService<>), typeof(CacheService<>));
 
             services.AddStackExchangeRedisCache(options =>
@@ -32,7 +32,9 @@ namespace NewLake.Api.Infrastructure.Extensions
 
         public static IServiceCollection AddMessagingServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<QueueSettings>(configuration.GetSection(nameof(QueueSettings)));
+            var queueSettings = configuration.GetSection("QueueSettings");
+
+            services.Configure<QueueSettings>(queueSettings);
 
             services.AddSingleton(typeof(IMessageService<>), typeof(MessageService<>));
             return services;
