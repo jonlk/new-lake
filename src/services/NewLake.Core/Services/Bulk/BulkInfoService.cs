@@ -18,15 +18,15 @@ namespace NewLake.Core.Services.Bulk
 
         public override async Task<ReturnMessage> SendBulkMessage(MessagePacket request, ServerCallContext context)
         {
-            _logger.LogInformation($"Receiving Packet Id: {request.PacketId}\n");
+            _logger.LogInformation($"Receiving Packet Id: {request.PacketId}");
 
             await Task.Delay(2000);
 
-            _logger.LogInformation($"Processing...\n");
+            _logger.LogInformation($"Processing...");
 
             await Task.Delay(5000);
 
-            _logger.LogInformation($"Completed\n");
+            _logger.LogInformation($"Completed");
 
             var returnMessage = new ReturnMessage { InfoMessage = "Success!" };
 
