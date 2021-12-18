@@ -12,12 +12,20 @@ namespace NewLake.Api
 {
     public class Startup
     {
+        private ILogger<Startup> _logger;
+        public IConfiguration _configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
-        }
 
-        public IConfiguration _configuration { get; }
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+            });
+
+            _logger = loggerFactory.CreateLogger<Startup>();
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -27,16 +35,15 @@ namespace NewLake.Api
             });
 
             services
-                .AddCachingServices(_configuration)
+                .AddCachingServices(_configuration, _logger)
                 .AddMessagingServices(_configuration);
 
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            logger.LogInformation($"Application started at: {DateTime.UtcNow} UTC");
-
+            _logger.LogInformation($"Application started at: {DateTime.UtcNow} UTC");
 
             if (env.IsDevelopment())
             {
