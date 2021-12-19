@@ -10,7 +10,7 @@ service NewLakeGrpcService{
 }
 
 message ReturnMessage{
-	string infoMessage=1;
+	string returnInfo=1;
 }
 
 message InfoMessage {
