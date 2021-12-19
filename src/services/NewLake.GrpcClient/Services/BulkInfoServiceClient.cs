@@ -19,7 +19,21 @@ namespace NewLake.GrpcClient.Sender.Services
             pkt.InfoMessages.Add(new InfoMessage
             {
                 MessageId = messageId,
-                MessageData = "Test info message",
+                MessageData = Guid.NewGuid().ToString(),
+                MessageTime = Timestamp.FromDateTime(DateTime.UtcNow)
+            });
+
+            pkt.InfoMessages.Add(new InfoMessage
+            {
+                MessageId = messageId + 1,
+                MessageData = Guid.NewGuid().ToString(),
+                MessageTime = Timestamp.FromDateTime(DateTime.UtcNow)
+            });
+
+            pkt.InfoMessages.Add(new InfoMessage
+            {
+                MessageId = messageId + 2,
+                MessageData = Guid.NewGuid().ToString(),
                 MessageTime = Timestamp.FromDateTime(DateTime.UtcNow)
             });
 

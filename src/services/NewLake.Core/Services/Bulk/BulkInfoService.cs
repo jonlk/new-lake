@@ -23,7 +23,14 @@ namespace NewLake.Core.Services.Bulk
 
             _logger.LogInformation($"Processing...");
 
-            await Task.Delay(5000); //simulate some "processing" ;-)
+            foreach (var message in request.InfoMessages)
+            {
+                _logger.LogInformation($"Message Id: {message.MessageId}, " +
+                                        $"Message Guid Data: {message.MessageData}," +
+                                        $"Message Time: {message.MessageTime}\n");
+
+                await Task.Delay(1000); //simulate some "processing" ;-)
+            }
 
             _logger.LogInformation($"Completed");
 
