@@ -45,7 +45,7 @@ namespace NewLake.GrpcClient
                 {
                     var result = await _client.SendBulkMessageAsync(pkt);
 
-                    _logger.LogInformation($"{result.InfoMessage}", DateTimeOffset.Now);
+                    _logger.LogInformation($"{result.ReturnInfo}", DateTimeOffset.Now);
 
                     packetId++;
 

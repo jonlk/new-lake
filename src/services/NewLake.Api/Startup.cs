@@ -55,6 +55,7 @@ namespace NewLake.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<BulkInfoService>();
+
                 endpoints.MapControllers();
             });
         }

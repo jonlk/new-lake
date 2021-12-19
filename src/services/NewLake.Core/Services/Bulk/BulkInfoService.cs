@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using NewLake.Core.GrpcProto.Services;
@@ -20,17 +19,24 @@ namespace NewLake.Core.Services.Bulk
         {
             _logger.LogInformation($"Receiving Packet Id: {request.PacketId}");
 
-            await Task.Delay(2000);
+            await Task.Delay(2000); //simulate some "receiving" ;-)
 
             _logger.LogInformation($"Processing...");
 
-            await Task.Delay(5000);
+            foreach (var message in request.InfoMessages)
+            {
+                _logger.LogInformation($"Message Id: {message.MessageId}, " +
+                                        $"Message Guid Data: {message.MessageData}," +
+                                        $"Message Time: {message.MessageTime}\n");
+
+                await Task.Delay(1000); //simulate some "processing" ;-)
+            }
 
             _logger.LogInformation($"Completed");
 
-            var returnMessage = new ReturnMessage { InfoMessage = "Success!" };
+            var returnMessage = new ReturnMessage { ReturnInfo = "Success!" };
 
-            await Task.Delay(2000);
+            await Task.Delay(2000); //simulate some "tear down" ;-)
 
             return returnMessage;
         }
