@@ -1,5 +1,5 @@
-using NewLake.GrpcClient;
-using NewLake.GrpcClient.Sender.Services;
+using NewLake.GrpcServer;
+using NewLake.GrpcServer.Sender.Services;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
@@ -8,8 +8,8 @@ IHost host = Host.CreateDefaultBuilder(args)
             .Configuration
             .GetSection(nameof(ServiceSettings)));
 
-        services.AddSingleton<IBulkInfoServiceClient, BulkInfoServiceClient>();
-        services.AddHostedService<GrpcAutoClientService>();
+        services.AddSingleton<IBulkPacketGenerator, BulkPacketGenerator>();
+        services.AddHostedService<GrpcAutoServer>();
     })
     .Build();
 

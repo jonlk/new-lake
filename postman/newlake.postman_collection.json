@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "d39a6c65-a02d-4dfe-8e74-a98bc9f8e196",
+		"name": "newlake",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CacheSet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key\": \"a\",\n    \"value\": \"The value for key a\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/cache/set",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"cache",
+						"set"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CacheGet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/cache/get/a",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"cache",
+						"get",
+						"a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CacheDelete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/cache/delete/a",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"cache",
+						"delete",
+						"a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MessagePublish",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"this is a test message\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/message/publish",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"message",
+						"publish"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

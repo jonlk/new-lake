@@ -1,8 +1,8 @@
 ﻿using NewLake.Core.GrpcProto.Services;
 
-namespace NewLake.GrpcClient.Sender.Services
+namespace NewLake.GrpcServer.Sender.Services
 {
-    public interface IBulkInfoServiceClient
+    public interface IBulkPacketGenerator
     {
         MessagePacket BuildMessagePacket(int packetId);
     }
