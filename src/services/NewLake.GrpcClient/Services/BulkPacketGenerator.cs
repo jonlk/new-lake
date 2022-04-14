@@ -1,9 +1,9 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using NewLake.Core.GrpcProto.Services;
 
-namespace NewLake.GrpcClient.Sender.Services
+namespace NewLake.GrpcServer.Sender.Services
 {
-    public class BulkInfoServiceClient : IBulkInfoServiceClient
+    public class BulkPacketGenerator : IBulkPacketGenerator
     {
         public MessagePacket BuildMessagePacket(int packetId)
         {

@@ -1,21 +1,21 @@
 using Grpc.Net.Client;
 using Microsoft.Extensions.Options;
-using NewLake.GrpcClient.Sender.Services;
+using NewLake.GrpcServer.Sender.Services;
 using static NewLake.Core.GrpcProto.Services.NewLakeGrpcService;
 
-namespace NewLake.GrpcClient
+namespace NewLake.GrpcServer
 {
-    public class GrpcAutoClientService : BackgroundService
+    public class GrpcAutoServer : BackgroundService
     {
-        private readonly ILogger<GrpcAutoClientService> _logger;
-        private readonly IBulkInfoServiceClient _bulkInfoServiceClient;
+        private readonly ILogger<GrpcAutoServer> _logger;
+        private readonly IBulkPacketGenerator _bulkInfoServiceClient;
 
         private readonly ServiceSettings _serviceSettings;
         private readonly NewLakeGrpcServiceClient _client;
 
-        public GrpcAutoClientService(
-             ILogger<GrpcAutoClientService> logger,
-            IBulkInfoServiceClient bulkInfoServiceClient,
+        public GrpcAutoServer(
+             ILogger<GrpcAutoServer> logger,
+            IBulkPacketGenerator bulkInfoServiceClient,
             IOptions<ServiceSettings> options)
         {
             _bulkInfoServiceClient = bulkInfoServiceClient;

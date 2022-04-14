@@ -1,4 +1,4 @@
-﻿namespace NewLake.GrpcClient
+﻿namespace NewLake.GrpcServer
 {
     public class ServiceSettings
     {
