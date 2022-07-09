@@ -32,7 +32,7 @@
     <Protobuf Include="Proto\enums.proto" GrpcServices="None" ProtoRoot="Proto\">
       <SubType>Component</SubType>
     </Protobuf>
-    <Protobuf Include="Proto\BulkData.proto" ProtoRoot="Proto\">
+    <Protobuf Include="Proto\bulkdata.proto" ProtoRoot="Proto\">
       <SubType>Component</SubType>
     </Protobuf>
   </ItemGroup>
