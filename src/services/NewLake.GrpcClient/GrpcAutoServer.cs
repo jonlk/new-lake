@@ -24,7 +24,7 @@ namespace NewLake.GrpcServer
 
             if (_client == null)
             {
-                var channel = GrpcChannel.ForAddress(_serviceSettings.ServerUrl);
+                var channel = GrpcChannel.ForAddress(_serviceSettings.ServerUrl ?? "");
                 _client = new NewLakeGrpcServiceClient(channel);
             }
         }
