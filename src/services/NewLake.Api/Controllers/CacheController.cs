@@ -1,5 +1,6 @@
 ﻿namespace NewLake.Api.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class CacheController : ControllerBase
     {
@@ -19,8 +20,8 @@
 
         [HttpPost]
         [Route("set")]
-        public async Task<ActionResult<CacheItem>> SetValueAsync([FromBody] CacheItem request)
-        {
+        public async Task<ActionResult<CacheItem>> SetValueAsync(CacheItem request)
+        {  
             var value = await _cacheService
                 .SetItemAsync(request);
 

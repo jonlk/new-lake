@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using NewLake.Core.Services.Messaging;
-
-namespace NewLake.Api.Controllers
+﻿namespace NewLake.Api.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class MessageController : ControllerBase
     {
@@ -20,7 +17,7 @@ namespace NewLake.Api.Controllers
 
         [HttpPost]
         [Route("publish")]
-        public  ActionResult<string> PublishMessage([FromBody] string request)
+        public ActionResult<string> PublishMessage([FromBody] string request)
         {
             _messageService.Publish(request);
 

@@ -29,7 +29,10 @@
                 .AddMessagingServices(_configuration);
 
             services.AddControllers()
-                    .AddFluentValidation();
+                    .AddFluentValidation(options =>
+                    {
+                        options.RegisterValidatorsFromAssemblyContaining<CacheItemValidator>();
+                    });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
