@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\NewLake.Core\Proto\BulkData.proto" GrpcServices="Client">
+    <Protobuf Include="..\NewLake.Core\Proto\bulkdata.proto" GrpcServices="Client">
       <Link>Protos\BulkData.proto</Link>
     </Protobuf>
     <Protobuf Include="..\NewLake.Core\Proto\enums.proto" GrpcServices="None">

@@ -1,12 +1,6 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using NewLake.Core;
-using NewLake.Core.Domain.Model;
-using StackExchange.Redis;
-
-namespace NewLake.Api.Controllers
+﻿namespace NewLake.Api.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class CacheController : ControllerBase
     {
@@ -26,8 +20,8 @@ namespace NewLake.Api.Controllers
 
         [HttpPost]
         [Route("set")]
-        public async Task<ActionResult<CacheItem>> SetValueAsync([FromBody] CacheItem request)
-        {
+        public async Task<ActionResult<CacheItem>> SetValueAsync(CacheItem request)
+        {  
             var value = await _cacheService
                 .SetItemAsync(request);
 

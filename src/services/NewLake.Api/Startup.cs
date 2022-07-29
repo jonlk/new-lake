@@ -1,14 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using NewLake.Api.Infrastructure.Extensions;
-using NewLake.Core.Services.Bulk;
-
-namespace NewLake.Api
+﻿namespace NewLake.Api
 {
     public class Startup
     {
@@ -38,7 +28,11 @@ namespace NewLake.Api
                 .AddCachingServices(_configuration, _logger)
                 .AddMessagingServices(_configuration);
 
-            services.AddControllers();
+            services.AddControllers()
+                    .AddFluentValidation(options =>
+                    {
+                        options.RegisterValidatorsFromAssemblyContaining<CacheItemValidator>();
+                    });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
