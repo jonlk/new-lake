@@ -19,7 +19,8 @@ namespace NewLake.Api.Infrastructure.Extensions
         {
             try
             {
-                var muxer = ConnectionMultiplexer.Connect("local-redis,allowAdmin=true");
+                //test for k8s
+                var muxer = ConnectionMultiplexer.Connect("localhost,allowAdmin=true");
 
                 muxer.GetServer(muxer.GetEndPoints().Single())
                     .ConfigSet("notify-keyspace-events", "Kh");
