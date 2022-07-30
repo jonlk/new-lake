@@ -1,5 +1,7 @@
 global using System;
 global using System.Threading.Tasks;
+global using System.Linq;
+global using NewLake.Core.Infrastructure;
 
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Hosting;
@@ -19,4 +21,3 @@ global using NewLake.Core.Services.Bulk;
 global using NewLake.Core.Services.Messaging;
 
 global using StackExchange.Redis;
-
