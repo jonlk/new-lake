@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  new-lake-api:
+    image: new-lake-api:latest
+    build: 
+      context: .
+      dockerfile: src/services/NewLake.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+
+    
