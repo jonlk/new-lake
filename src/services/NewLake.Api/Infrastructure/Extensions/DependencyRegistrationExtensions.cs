@@ -6,8 +6,9 @@
         {
             try
             {
+                var redisHost = configuration["RedisHost"].ToString();
                 //test for k8s
-                var muxer = ConnectionMultiplexer.Connect("local-redis,allowAdmin=true");
+                var muxer = ConnectionMultiplexer.Connect($"{redisHost},allowAdmin=true");
 
                 muxer.GetServer(muxer.GetEndPoints().Single())
                     .ConfigSet("notify-keyspace-events", "Kh");
