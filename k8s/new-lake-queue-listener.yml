@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: new-lake-api  
+  name: new-lake-queue-listener  
 spec:
   selector:
     matchLabels:
-      app: new-lake-api
+      app: new-lake-queue-listener
   replicas: 1
   template:
     metadata:
       labels:
-        app: new-lake-api
+        app: new-lake-queue-listener
     spec:
       containers:
-      - name: new-lake-api
-        image: new-lake-api:latest
+      - name: new-lake-queue-listener
+        image: new-lake-queue-listener:latest
         envFrom:
           - configMapRef: 
               name: new-lake-config
-        ports:
-        - containerPort: 80
+        # ports:
+        # - containerPort: 5672
         resources:
           requests:
             memory: "64Mi"
@@ -33,13 +33,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: new-lake-api-service
+  name: new-lake-queue-listener-service
 spec:
   selector:
-    app: new-lake-api  
-  type: NodePort
-  ports:
-    - protocol: TCP 
-      port: 80
-      targetPort: 80      
-      nodePort: 31505 
+    app: new-lake-queue-listener
+  clusterIP: None 

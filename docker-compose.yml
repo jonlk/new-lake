@@ -9,5 +9,13 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
+  new-lake-queue-listener:
+    image: new-lake-queue-listener:latest
+    build: 
+      context: .
+      dockerfile: src/services/NewLake.Queue.Listener/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
 
     
