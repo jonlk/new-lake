@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: new-lake-grpc-server  
+spec:
+  selector:
+    matchLabels:
+      app: new-lake-grpc-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: new-lake-grpc-server
+    spec:
+      containers:
+      - name: new-lake-grpc-server
+        image: new-lake-grpc-server:latest
+        envFrom:
+          - configMapRef: 
+              name: new-lake-grpc-config
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        imagePullPolicy: Never
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: new-lake-grpc-service
+spec:
+  selector:
+    app: new-lake-grpc-server
+  clusterIP: None
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: new-lake-grpc-config
+data:
+  ServiceSettings__DelayInterval: '10000'
+  ServiceSettings__MessageId: '1'
+  ServiceSettings__ServerUrl: https://new-lake-api-service

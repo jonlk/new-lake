@@ -40,6 +40,7 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP 
+      name: http-unsecured
       port: 80
       targetPort: 80      
-      nodePort: 31505 
+      nodePort: 31505

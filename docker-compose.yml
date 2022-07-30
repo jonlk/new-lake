@@ -15,7 +15,17 @@ services:
       context: .
       dockerfile: src/services/NewLake.Queue.Listener/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - DOTNET_ENVIRONMENT=Production
+
+  new-lake-grpc-server:
+    image: new-lake-grpc-server:latest
+    build: 
+      context: .
+      dockerfile: src/services/NewLake.GrpcServer/Dockerfile
+    environment:
+      - DOTNET_ENVIRONMENT=Production
+
+
 
 
     
