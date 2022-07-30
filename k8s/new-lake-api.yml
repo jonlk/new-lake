@@ -17,9 +17,10 @@ spec:
         image: new-lake-api:latest
         envFrom:
           - configMapRef: 
-              name: new-lake-api-config
+              name: new-lake-config
         ports:
         - containerPort: 80
+        - containerPort: 5000
         resources:
           requests:
             memory: "64Mi"
@@ -40,19 +41,12 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP 
+      name: http-unsecured
       port: 80
       targetPort: 80      
-      nodePort: 31505 
-      
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: new-lake-api-config
-data:
-  RedisHost: local-redis
-  QueueSettings__HostName: localhost
-  QueueSettings__QueueName: local-test-queue
-  QueueSettings__Exchange: local-exchange
-  QueueSettings__Topic: local.topic
-  QueueSettings__RoutingKey: local_routing
+      nodePort: 31505
+    - protocol: TCP 
+      name: http2
+      port: 5000
+      targetPort: 5000      
+      nodePort: 31500
