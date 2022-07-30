@@ -7,7 +7,7 @@ namespace NewLake.Api.Controllers
         [HttpGet]       
         public ActionResult<string> GetTestValue()
         {
-            var result = "Test successful";
+            var result = "Yak successful";
             return Ok(result);
         }
     }
