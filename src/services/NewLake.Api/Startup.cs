@@ -22,7 +22,7 @@
             services.AddGrpc(opt =>
             {
                 opt.EnableDetailedErrors = true;
-            });
+            });         
 
             services
                 .AddCachingServices(_configuration, _logger)

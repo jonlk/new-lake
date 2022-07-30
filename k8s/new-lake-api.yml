@@ -20,6 +20,7 @@ spec:
               name: new-lake-config
         ports:
         - containerPort: 80
+        - containerPort: 5000
         resources:
           requests:
             memory: "64Mi"
@@ -44,3 +45,8 @@ spec:
       port: 80
       targetPort: 80      
       nodePort: 31505
+    - protocol: TCP 
+      name: http2
+      port: 5000
+      targetPort: 5000      
+      nodePort: 31500
