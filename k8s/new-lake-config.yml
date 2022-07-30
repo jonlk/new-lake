@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: new-lake-api-config
 data:
+  RedisHost: local-redis
   QueueSettings__HostName: localhost
   QueueSettings__QueueName: local-test-queue
   QueueSettings__Exchange: local-exchange
