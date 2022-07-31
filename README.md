@@ -1,6 +1,6 @@
 # New Lake
 
-## NET 6 Api with the following services
+## Exploring decoupled services with .Net 6 and Kubernetes
 
 - Redis Cache
 - Rabbit MQ
