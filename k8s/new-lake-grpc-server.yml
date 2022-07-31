@@ -45,4 +45,4 @@ metadata:
 data:
   ServiceSettings__DelayInterval: '10000'
   ServiceSettings__MessageId: '1'
-  ServiceSettings__ServerUrl: http://new-lake-api-service:5000
+  ServiceSettings__ServerUrl: 'http://new-lake-grpc-api-service:5002'

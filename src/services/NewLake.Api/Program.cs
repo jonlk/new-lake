@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Server.Kestrel.Core;
-
-namespace NewLake.Api
+﻿namespace NewLake.Api
 {
     public class Program
     {
@@ -13,14 +11,18 @@ namespace NewLake.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                      webBuilder.ConfigureKestrel(options =>
+                    webBuilder.ConfigureKestrel(options =>
                     {
-                        // Setup a HTTP/2 endpoint without TLS.
-                        options.ListenLocalhost(5000, o => o.Protocols = 
-                            HttpProtocols.Http2);
-
+                        options.Listen(IPAddress.Any, 5001, listenOptions =>
+                        {
+                            listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+                        });
+                        options.Listen(IPAddress.Any, 5002, listenOptions =>
+                        {
+                            listenOptions.Protocols = HttpProtocols.Http2;
+                        });
                     });
-                    
+
                     webBuilder.UseStartup<Startup>();
                 });
     }

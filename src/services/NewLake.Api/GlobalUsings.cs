@@ -1,7 +1,10 @@
 global using System;
+global using System.Net;
 global using System.Threading.Tasks;
 global using System.Linq;
 global using NewLake.Core.Infrastructure;
+
+global using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Hosting;
