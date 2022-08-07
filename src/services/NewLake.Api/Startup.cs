@@ -26,7 +26,8 @@
 
             services
                 .AddCachingServices(_configuration, _logger)
-                .AddMessagingServices(_configuration);
+                .AddMessagingServices(_configuration)
+                .AddBackgroundHttpClient();
 
             services.AddControllers()
                     .AddFluentValidation(options =>

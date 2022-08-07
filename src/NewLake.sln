@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLake.Background.Api", "services\NewLake.Background.Api\NewLake.Background.Api.csproj", "{3E75150C-A0CC-4881-ABC2-7DCA95571638}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{42B2633E-8E72-4D21-B0F2-66B24A2A61FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42B2633E-8E72-4D21-B0F2-66B24A2A61FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42B2633E-8E72-4D21-B0F2-66B24A2A61FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E75150C-A0CC-4881-ABC2-7DCA95571638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E75150C-A0CC-4881-ABC2-7DCA95571638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E75150C-A0CC-4881-ABC2-7DCA95571638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E75150C-A0CC-4881-ABC2-7DCA95571638}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +55,7 @@ Global
 		{30C79DAD-1923-4156-83B6-2E727E5C65E5} = {83FE2D13-3924-4B12-A82A-BE09C1197478}
 		{488610FB-9A00-4983-A8A7-A086ABC2B600} = {83FE2D13-3924-4B12-A82A-BE09C1197478}
 		{42B2633E-8E72-4D21-B0F2-66B24A2A61FA} = {83FE2D13-3924-4B12-A82A-BE09C1197478}
+		{3E75150C-A0CC-4881-ABC2-7DCA95571638} = {83FE2D13-3924-4B12-A82A-BE09C1197478}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C7E4FCA-5BA7-4B8D-8FEA-65C580753CDE}

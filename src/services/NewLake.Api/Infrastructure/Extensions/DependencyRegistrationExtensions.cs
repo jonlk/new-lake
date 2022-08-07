@@ -61,5 +61,15 @@
             services.AddSingleton(typeof(IMessageService<>), typeof(MessageService<>));
             return services;
         }
+
+        public static IServiceCollection AddBackgroundHttpClient(this IServiceCollection services)
+        {
+            services.AddHttpClient<BackgroundHttpClient>(options =>
+            {
+                options.BaseAddress = new Uri("http://new-lake-background-service");
+            });
+
+            return services;
+        }
     }
 }
