@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewLake.Core", "services\Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewLake.Queue.Listener", "services\NewLake.Queue.Listener\NewLake.Queue.Listener.csproj", "{488610FB-9A00-4983-A8A7-A086ABC2B600}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewLake.GrpcServer", "services\NewLake.GrpcClient\NewLake.GrpcServer.csproj", "{42B2633E-8E72-4D21-B0F2-66B24A2A61FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewLake.GrpcServer", "services\NewLake.GrpcServer\NewLake.GrpcServer.csproj", "{42B2633E-8E72-4D21-B0F2-66B24A2A61FA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5328E328-2CF5-4A9B-82A8-704A639CDF38}"
 	ProjectSection(SolutionItems) = preProject
