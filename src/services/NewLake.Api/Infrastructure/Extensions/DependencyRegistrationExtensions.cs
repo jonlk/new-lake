@@ -4,30 +4,51 @@
     {
         public static IServiceCollection AddCachingServices(this IServiceCollection services, IConfiguration configuration, ILogger<Startup> logger)
         {
-            try
+            int retryCount = 3;
+
+            for (int i = 0; i <= retryCount; i++)
             {
-                var redisHost = configuration["RedisHost"].ToString();
-                //test for k8s
-                var muxer = ConnectionMultiplexer.Connect($"{redisHost},allowAdmin=true");
-
-                muxer.GetServer(muxer.GetEndPoints().Single())
-                    .ConfigSet("notify-keyspace-events", "Kh");
-
-                services.AddSingleton<IConnectionMultiplexer>(muxer);
-                services.AddSingleton(typeof(ICacheService<>), typeof(CacheService<>));
-
-                services.AddStackExchangeRedisCache(options =>
+                try
                 {
-                    options.Configuration = muxer.Configuration;
-                    //options.InstanceName = "CacheItem:";                
-                });
+                    var redisHost = configuration["RedisHost"].ToString();
 
-                services.AddDistributedMemoryCache();
+                    logger.LogInformation($"Attempting to connect to Redis cache at: {redisHost}");
+
+                    //test for k8s
+                    var muxer = ConnectionMultiplexer.Connect($"{redisHost},allowAdmin=true");
+
+                    muxer.GetServer(muxer.GetEndPoints().Single())
+                        .ConfigSet("notify-keyspace-events", "Kh");
+
+                    services.AddSingleton<IConnectionMultiplexer>(muxer);
+                    services.AddSingleton(typeof(ICacheService<>), typeof(CacheService<>));
+
+                    services.AddStackExchangeRedisCache(options =>
+                    {
+                        options.Configuration = muxer.Configuration;
+                        //options.InstanceName = "CacheItem:";                
+                    });
+
+                    services.AddDistributedMemoryCache();
+
+                    logger.LogInformation($"Successfully connected to Redis cache at: {redisHost}");
+
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    if (i < 3)
+                    {
+                        logger.LogWarning($"Attempt {i}. Could not connect to caching services. Trying again in 5 seconds", ex);
+                        Thread.Sleep(5000);
+                    }
+                    else
+                    {
+                        logger.LogError($"Failed connecting to caching services. Caching Services Unavailable", ex);
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                logger.LogError($"Caching Services Unavailable", ex);
-            }
+
             return services;
         }
 

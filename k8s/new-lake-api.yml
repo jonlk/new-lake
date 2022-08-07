@@ -41,7 +41,7 @@ metadata:
 spec:
   selector:
     app: new-lake-api  
-  type: NodePort
+  type: LoadBalancer
   ports:
     - protocol: TCP 
       name: http-unsecured
