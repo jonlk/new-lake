@@ -1,7 +1,11 @@
 # New Lake
 
-## NET 6 Api with the following services
+## Exploring decoupled services with .Net 6 and Kubernetes
 
+...new content goes here
+
+
+##For running components separately outside of k8s
 - Redis Cache
 - Rabbit MQ
 - gRPC Server and Client
