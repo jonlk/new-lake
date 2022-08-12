@@ -1,8 +1,7 @@
 ﻿namespace NewLake.Api
 {
     public class Startup
-    {
-       
+    {       
         public IConfiguration _configuration { get; }
 
         public Startup(IConfiguration configuration)

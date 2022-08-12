@@ -3,17 +3,14 @@
     [ApiController]
     [Route("api/[controller]")]
     public class CacheController : ControllerBase
-    {
-        private readonly ILogger<CacheController> _logger;
+    {        
         private readonly ICacheService<CacheItem> _cacheService;
         private readonly IConnectionMultiplexer _connectionMultiplexer;
 
-        public CacheController(
-            ILogger<CacheController> logger,
+        public CacheController(        
             ICacheService<CacheItem> cacheService,
             IConnectionMultiplexer connectionMultiplexer)
-        {
-            _logger = logger;
+        {     
             _cacheService = cacheService;
             _connectionMultiplexer = connectionMultiplexer;
         }
@@ -29,7 +26,7 @@
                 .GetSubscriber()
                 .SubscribeAsync("__keyspace@0__:*", async (channel, message) =>
                 {
-                    _logger.LogInformation($"Message: {message} , Channel: {channel}");
+                    Log.Information($"Message: {message} , Channel: {channel}");
                     await _connectionMultiplexer.GetSubscriber().UnsubscribeAllAsync();
                 });
 
