@@ -17,9 +17,7 @@ spec:
         image: new-lake-queue-listener:latest
         envFrom:
           - configMapRef: 
-              name: new-lake-config
-        # ports:
-        # - containerPort: 5672
+              name: new-lake-config        
         resources:
           requests:
             memory: "64Mi"
