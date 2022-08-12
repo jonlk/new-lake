@@ -1,93 +1,78 @@
-﻿using System;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using NewLake.Queue.Listener.Infrastructure.Settings;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-
-namespace NewLake.Queue.Listener
+﻿public class QueueListenerService : BackgroundService
 {
-    public class QueueListenerService : BackgroundService
+    private ConnectionFactory _factory;
+    private IConnection _connection;
+    private IModel _channel;
+
+    private readonly ILogger<QueueListenerService> _logger;
+    private readonly QueueSettings _queueSettings;
+
+    public QueueListenerService(
+        IOptions<QueueSettings> options,
+        ILogger<QueueListenerService> logger)
     {
-        private ConnectionFactory _factory;
-        private IConnection _connection;
-        private IModel _channel;
+        _queueSettings = options.Value;
+        _logger = logger;
+    }
 
-        private readonly ILogger<QueueListenerService> _logger;
-        private readonly QueueSettings _queueSettings;
-
-        public QueueListenerService(
-            IOptions<QueueSettings> options,
-            ILogger<QueueListenerService> logger)
+    public async override Task StartAsync(CancellationToken cancellationToken)
+    {
+        _factory = new ConnectionFactory()
         {
-            _queueSettings = options.Value;
-            _logger = logger;
-        }
+            HostName = _queueSettings.HostName,
+            DispatchConsumersAsync = true
+        };
 
-        public async override Task StartAsync(CancellationToken cancellationToken)
+        _connection = _factory.CreateConnection();
+        _channel = _connection.CreateModel();
+
+        _channel.QueueDeclare(queue: _queueSettings.QueueName,
+                             durable: false,
+                             exclusive: false,
+                             autoDelete: false,
+                             arguments: null);
+
+        _channel.BasicQos(0, 1, false);
+
+        await base.StartAsync(cancellationToken);
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        stoppingToken.ThrowIfCancellationRequested();
+        var consumer = new AsyncEventingBasicConsumer(_channel);
+
+        _logger.LogInformation($"Started listening on Queue: {_queueSettings.QueueName}");
+
+        consumer.Received += async (bc, ea) =>
         {
-            _factory = new ConnectionFactory()
+            var message = Encoding.UTF8.GetString(ea.Body.ToArray());
+
+            try
             {
-                HostName = _queueSettings.HostName,
-                DispatchConsumersAsync = true
-            };
+                _logger.LogInformation($"Receiving message: {message}");
 
-            _connection = _factory.CreateConnection();
-            _channel = _connection.CreateModel();
+                await Task.Delay(5000, stoppingToken); // simulate an async  process
 
-            _channel.QueueDeclare(queue: _queueSettings.QueueName,
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
-
-            _channel.BasicQos(0, 1, false);
-
-            await base.StartAsync(cancellationToken);
-        }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            stoppingToken.ThrowIfCancellationRequested();
-
-            var consumer = new AsyncEventingBasicConsumer(_channel);
-
-            _logger.LogInformation($"Started listening on Queue: {_queueSettings.QueueName}");
-
-            consumer.Received += async (bc, ea) =>
+                _channel.BasicAck(ea.DeliveryTag, false);
+            }
+            catch (Exception e)
             {
-                var message = Encoding.UTF8.GetString(ea.Body.ToArray());
+                _logger.LogError(default, e, e.Message);
+            }
+        };
 
-                try
-                {
-                    _logger.LogInformation($"Receiving message: {message}");
+        _channel.BasicConsume(queue: _queueSettings.QueueName,
+                                autoAck: false,
+                                consumer: consumer);
 
-                    await Task.Delay(5000, stoppingToken); // simulate an async  process
+        await Task.CompletedTask;
+    }
 
-                    _channel.BasicAck(ea.DeliveryTag, false);
-                }
-                catch (Exception e)
-                {
-                    _logger.LogError(default, e, e.Message);
-                }
-            };
-
-            _channel.BasicConsume(queue: _queueSettings.QueueName,                
-                                    autoAck: false,
-                                    consumer: consumer);
-
-            await Task.CompletedTask;
-        }
-
-        public override async Task StopAsync(CancellationToken cancellationToken)
-        {
-            _connection.Close();
-            _logger.LogInformation($"Stopped listening on Queue: {_queueSettings.QueueName}");
-            await base.StopAsync(cancellationToken);
-        }
+    public override async Task StopAsync(CancellationToken cancellationToken)
+    {
+        _connection.Close();
+        _logger.LogInformation($"Stopped listening on Queue: {_queueSettings.QueueName}");
+        await base.StopAsync(cancellationToken);
     }
 }
