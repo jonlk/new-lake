@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: new-lake-seq-app
+  name: seq-app
 spec:
   selector:
     matchLabels:
-      app: new-lake-seq-app
+      app: seq-app
   replicas: 1
   template:
     metadata:
       labels:
-        app: new-lake-seq-app
+        app: seq-app
     spec:
       containers:
         - name: seq
@@ -30,10 +30,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: new-lake-seq-service
+  name: seq-service
 spec:
   selector:
-    app: new-lake-seq-app
+    app: seq-app
   type: NodePort
   ports:
     - protocol: TCP
@@ -45,11 +45,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: new-lake-seq
+  name: seq-ingest
 spec:
   clusterIP: None
   selector:
-    app: new-lake-seq-app
+    app: seq-app
   ports:
     - protocol: TCP
       port: 5341
