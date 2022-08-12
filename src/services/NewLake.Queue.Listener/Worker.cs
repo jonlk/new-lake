@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NewLake.Core.Infrastructure;
+using NewLake.Queue.Listener.Infrastructure.Settings;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 

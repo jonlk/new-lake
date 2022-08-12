@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{082097B9-C7AC-4DBE-9F58-1B86B35C018A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{0BED1906-704D-4155-84FE-1660BF3640FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLake.Api", "src\services\NewLake.Api\NewLake.Api.csproj", "{E54F2C5F-A57D-40CA-94B4-043622F684E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLake.GrpcGenerator", "src\services\NewLake.GrpcGenerator\NewLake.GrpcGenerator.csproj", "{8E2E7C4B-7B5F-48FA-B29B-81756D0F2C89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLake.Queue.Listener", "src\services\NewLake.Queue.Listener\NewLake.Queue.Listener.csproj", "{BD9F8F39-9091-42E0-9608-DE1897FA015E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewLake.Background.Api", "src\services\NewLake.Background.Api\NewLake.Background.Api.csproj", "{A23387BC-B861-4E3F-BCD3-00A1A4477B9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E54F2C5F-A57D-40CA-94B4-043622F684E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E54F2C5F-A57D-40CA-94B4-043622F684E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E54F2C5F-A57D-40CA-94B4-043622F684E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E54F2C5F-A57D-40CA-94B4-043622F684E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E2E7C4B-7B5F-48FA-B29B-81756D0F2C89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2E7C4B-7B5F-48FA-B29B-81756D0F2C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2E7C4B-7B5F-48FA-B29B-81756D0F2C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2E7C4B-7B5F-48FA-B29B-81756D0F2C89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD9F8F39-9091-42E0-9608-DE1897FA015E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD9F8F39-9091-42E0-9608-DE1897FA015E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD9F8F39-9091-42E0-9608-DE1897FA015E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD9F8F39-9091-42E0-9608-DE1897FA015E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A23387BC-B861-4E3F-BCD3-00A1A4477B9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A23387BC-B861-4E3F-BCD3-00A1A4477B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A23387BC-B861-4E3F-BCD3-00A1A4477B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A23387BC-B861-4E3F-BCD3-00A1A4477B9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0BED1906-704D-4155-84FE-1660BF3640FC} = {082097B9-C7AC-4DBE-9F58-1B86B35C018A}
+		{E54F2C5F-A57D-40CA-94B4-043622F684E4} = {0BED1906-704D-4155-84FE-1660BF3640FC}
+		{8E2E7C4B-7B5F-48FA-B29B-81756D0F2C89} = {0BED1906-704D-4155-84FE-1660BF3640FC}
+		{BD9F8F39-9091-42E0-9608-DE1897FA015E} = {0BED1906-704D-4155-84FE-1660BF3640FC}
+		{A23387BC-B861-4E3F-BCD3-00A1A4477B9B} = {0BED1906-704D-4155-84FE-1660BF3640FC}
+	EndGlobalSection
+EndGlobal
