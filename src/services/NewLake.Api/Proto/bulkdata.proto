@@ -1,0 +1,27 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "NewLake.Api.GrpcProto.Services";
+
+import "enums.proto";
+import "google/protobuf/timestamp.proto";
+
+service NewLakeGrpcService{
+	rpc SendBulkMessage (MessagePacket) returns (ReturnMessage);
+}
+
+message ReturnMessage{
+	string returnInfo=1;
+}
+
+message InfoMessage {
+	int32 messageId=1;
+	string messageData=2;	
+	google.protobuf.Timestamp messageTime=3;
+}
+
+message MessagePacket{
+	int32 packetId=1;
+	repeated InfoMessage infoMessages=2;
+	string notes=3;
+	MessageStatus messageStatus=4;
+}

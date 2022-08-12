@@ -5,7 +5,6 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 
 COPY ["src/services/NewLake.Queue.Listener/", "/src/NewLake.Queue.Listener/"]
-COPY ["src/services/NewLake.Core/", "/src/NewLake.Core/"]
 
 RUN dotnet restore "NewLake.Queue.Listener/NewLake.Queue.Listener.csproj"
 

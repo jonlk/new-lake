@@ -1,0 +1,9 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "NewLake.GrpcGenerator.Services";
+
+enum MessageStatus {
+	INVALID=0;
+	SUCCESS=1;
+	FAILURE=2;
+}

@@ -5,7 +5,6 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 
 COPY ["src/services/NewLake.Api/", "/src/NewLake.Api/"]
-COPY ["src/services/NewLake.Core/", "/src/NewLake.Core/"]
 
 RUN dotnet restore "NewLake.Api/NewLake.Api.csproj"
 

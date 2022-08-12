@@ -12,7 +12,4 @@
   <ItemGroup>
     <None Remove="RabbitMQ.Client" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NewLake.Core\NewLake.Core.csproj" />
-  </ItemGroup>
 </Project>

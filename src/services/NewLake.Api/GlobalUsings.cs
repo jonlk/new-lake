@@ -1,5 +1,8 @@
 global using FluentValidation.AspNetCore;
 global using FluentValidation;
+
+global using Grpc.Core;
+
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc;
@@ -8,15 +11,19 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Logging;
+
+global using NewLake.Api.GrpcProto.Services;
 global using NewLake.Api.Infrastructure.Extensions;
-global using NewLake.Core.Domain.Model;
-global using NewLake.Core.Infrastructure;
-global using NewLake.Core.Services.Bulk;
-global using NewLake.Core.Services.Messaging;
-global using NewLake.Core;
+global using NewLake.Api.Infrastructure.Services.Bulk;
+global using NewLake.Api.Infrastructure.Services;
+global using NewLake.Api.Infrastructure.Settings;
+global using NewLake.Api.Model;
+
 global using Serilog.Events;
 global using Serilog;
+
 global using StackExchange.Redis;
+
 global using System.Linq;
 global using System.Net.Http;
 global using System.Net;
