@@ -44,7 +44,7 @@
                     }
                     else
                     {
-                        Log.Warning($"Failed connecting to caching services. Caching Services Unavailable", ex);
+                        Log.Error($"Failed connecting to caching services. Caching Services Unavailable", ex);
                     }
                 }
             }
