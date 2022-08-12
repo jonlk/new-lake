@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: new-lake-seq-app
+spec:
+  selector:
+    matchLabels:
+      app: new-lake-seq-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: new-lake-seq-app
+    spec:
+      containers:
+        - name: seq
+          image: datalust/seq:latest
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+          ports:
+          - containerPort: 5341
+          - containerPort: 80
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "400m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: new-lake-seq-service
+spec:
+  selector:
+    app: new-lake-seq-app
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 31534
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: new-lake-seq
+spec:
+  clusterIP: None
+  selector:
+    app: new-lake-seq-app
+  ports:
+    - protocol: TCP
+      port: 5341
+      targetPort: 5341

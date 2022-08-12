@@ -2,7 +2,7 @@
 {
     public static class DependencyRegistrationExtensions
     {
-        public static IServiceCollection AddCachingServices(this IServiceCollection services, IConfiguration configuration, ILogger<Startup> logger)
+        public static IServiceCollection AddCachingServices(this IServiceCollection services, IConfiguration configuration)
         {
             int retryCount = 3;
 
@@ -12,7 +12,7 @@
                 {
                     var redisHost = configuration["RedisHost"].ToString();
 
-                    logger.LogInformation($"Attempting to connect to Redis cache at: {redisHost}");
+                    Log.Information($"Attempting to connect to Redis cache at: {redisHost}");
 
                     //test for k8s
                     var muxer = ConnectionMultiplexer.Connect($"{redisHost},allowAdmin=true");
@@ -31,7 +31,7 @@
 
                     services.AddDistributedMemoryCache();
 
-                    logger.LogInformation($"Successfully connected to Redis cache at: {redisHost}");
+                    Log.Information($"Successfully connected to Redis cache at: {redisHost}");
 
                     break;
                 }
@@ -39,12 +39,12 @@
                 {
                     if (i < 3)
                     {
-                        logger.LogWarning($"Attempt {i}. Could not connect to caching services. Trying again in 5 seconds", ex);
+                        Log.Warning($"Attempt {i}. Could not connect to caching services. Trying again in 5 seconds", ex);
                         Thread.Sleep(5000);
                     }
                     else
                     {
-                        logger.LogError($"Failed connecting to caching services. Caching Services Unavailable", ex);
+                        Log.Warning($"Failed connecting to caching services. Caching Services Unavailable", ex);
                     }
                 }
             }

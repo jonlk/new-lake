@@ -26,3 +26,6 @@ global using NewLake.Core.Services.Bulk;
 global using NewLake.Core.Services.Messaging;
 
 global using StackExchange.Redis;
+
+global using Serilog;
+global using Serilog.Events;

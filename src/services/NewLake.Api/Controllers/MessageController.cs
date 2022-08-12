@@ -3,16 +3,12 @@
     [ApiController]
     [Route("api/[controller]")]
     public class MessageController : ControllerBase
-    {
-        private readonly ILogger<MessageController> _logger;
+    {      
         private readonly IMessageService<string> _messageService;
 
-        public MessageController(
-            ILogger<MessageController> logger,
-            IMessageService<string> messageService)
+        public MessageController(IMessageService<string> messageService)
         {
-            _messageService = messageService;
-            _logger = logger;
+            _messageService = messageService;            
         }
 
         [HttpPost]
@@ -20,9 +16,7 @@
         public ActionResult<string> PublishMessage([FromBody] string request)
         {
             _messageService.Publish(request);
-
             return Ok();
         }
-
     }
 }

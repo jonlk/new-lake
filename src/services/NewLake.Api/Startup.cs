@@ -2,19 +2,13 @@
 {
     public class Startup
     {
-        private ILogger<Startup> _logger;
+       
         public IConfiguration _configuration { get; }
 
         public Startup(IConfiguration configuration)
         {
-            _configuration = configuration;
-
-            var loggerFactory = LoggerFactory.Create(builder =>
-            {
-                builder.AddConsole();
-            });
-
-            _logger = loggerFactory.CreateLogger<Startup>();
+            _configuration = configuration;  
+                     
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -25,7 +19,7 @@
             });         
 
             services
-                .AddCachingServices(_configuration, _logger)
+                .AddCachingServices(_configuration)
                 .AddMessagingServices(_configuration)
                 .AddBackgroundHttpClient();
 
@@ -38,7 +32,7 @@
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            _logger.LogInformation($"Application started at: {DateTime.UtcNow} UTC");
+            Log.Information($"Application started at: {DateTime.UtcNow} UTC");
 
             if (env.IsDevelopment())
             {
