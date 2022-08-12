@@ -1,6 +1,4 @@
-﻿
-
-namespace NewLake.Api
+﻿namespace NewLake.Api
 {
     public class Startup
     {       

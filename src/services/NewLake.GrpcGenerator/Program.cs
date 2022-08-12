@@ -1,7 +1,12 @@
-using NewLake.GrpcGenerator;
-using NewLake.GrpcGenerator.Services;
+var logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.Seq("http://seq-ingest")
+    .CreateLogger();
 
 IHost host = Host.CreateDefaultBuilder(args)
+    .UseSerilog(logger)   
     .ConfigureServices((hostContext, services) =>
     {
         services.Configure<ServiceSettings>(hostContext
