@@ -1,12 +1,10 @@
 public class BackgroundHttpClient
 {
     private readonly HttpClient _httpClient;
-    private readonly ILogger<BackgroundHttpClient> _logger;
 
-    public BackgroundHttpClient(HttpClient httpClient, ILogger<BackgroundHttpClient> logger)
+    public BackgroundHttpClient(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        _logger = logger;
     }
 
     public async Task<string> GetResultFromHttpClient()
@@ -17,7 +15,7 @@ public class BackgroundHttpClient
         var response = await _httpClient.SendAsync(request);
         var result = await response.Content.ReadAsStringAsync();
 
-        _logger.LogInformation($"Received {result} from Background Service");
+        Log.Information($"Received {result} from Background Service");
 
         return result;
     }

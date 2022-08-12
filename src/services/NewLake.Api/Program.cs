@@ -8,7 +8,7 @@
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Seq("http://new-lake-seq")
+                .WriteTo.Seq("http://new-lake-seq", apiKey: "ZWjhuh9DXQb6sGT3dXTS")
                 .CreateLogger();
 
             try

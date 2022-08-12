@@ -1,8 +1,20 @@
+var logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.Seq("http://new-lake-seq", apiKey: "HEvI4EuLkzAjdVM8ZIXZ")
+    .CreateLogger();
+
+Log.Information("Starting web host");
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// remove default logging providers
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
+// Add services to the container.
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,9 +29,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
