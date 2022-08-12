@@ -32,11 +32,3 @@ services:
       dockerfile: src/services/NewLake.GrpcServer/Dockerfile
     environment:
       - DOTNET_ENVIRONMENT=Production
-
-  
-  
-
-
-
-
-    
