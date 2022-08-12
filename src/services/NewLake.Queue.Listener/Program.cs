@@ -1,15 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using NewLake.Queue.Listener.Infrastructure.Settings;
+﻿var logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.Seq("http://seq-ingest")
+    .CreateLogger();
 
-namespace NewLake.Queue.Listener
-{
-    public class Program
-    {
-        public static void Main(string[] args) { CreateHostBuilder(args).Build().Run(); }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+IHost host = Host.CreateDefaultBuilder(args)
+                .UseSerilog(logger)
                 .ConfigureServices((hostContext, services) =>
                 {
                     var queueConfigSettings = hostContext
@@ -18,6 +15,7 @@ namespace NewLake.Queue.Listener
 
                     services.Configure<QueueSettings>(queueConfigSettings);
                     services.AddHostedService<QueueListenerService>();
-                });
-    }
-}
+                })                
+                .Build();
+
+await host.RunAsync();

@@ -1,5 +1,4 @@
 ﻿using Google.Protobuf.WellKnownTypes;
-using NewLake.GrpcGenerator.Services;
 
 namespace NewLake.GrpcGenerator.Services
 {

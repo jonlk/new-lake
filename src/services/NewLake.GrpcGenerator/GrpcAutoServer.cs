@@ -1,6 +1,4 @@
-using Grpc.Net.Client;
-using Microsoft.Extensions.Options;
-using NewLake.GrpcGenerator.Services;
+
 using static NewLake.GrpcGenerator.Services.NewLakeGrpcService;
 
 namespace NewLake.GrpcGenerator

@@ -2,7 +2,7 @@ var logger = new LoggerConfiguration()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .Enrich.FromLogContext()
     .WriteTo.Console()
-    .WriteTo.Seq("http://new-lake-seq", apiKey: "HEvI4EuLkzAjdVM8ZIXZ")
+    .WriteTo.Seq("http://seq-ingest")
     .CreateLogger();
 
 Log.Information("Starting web host");
@@ -21,14 +21,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

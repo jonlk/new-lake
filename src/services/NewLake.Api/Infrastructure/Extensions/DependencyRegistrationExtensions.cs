@@ -39,7 +39,7 @@
                 {
                     if (i < 3)
                     {
-                        Log.Warning($"Attempt {i}. Could not connect to caching services. Trying again in 5 seconds", ex);
+                        Log.Warning($"Attempt {i + 1}. Could not connect to caching services. Trying again in 5 seconds", ex);
                         Thread.Sleep(5000);
                     }
                     else
