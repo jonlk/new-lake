@@ -5,16 +5,16 @@ metadata:
   # annotations:
   #   kubernetes.io/ingress.class: "nginx"
 spec:
-  ingressClassName: nginx     
+  ingressClassName: nginx
 
-  rules:  
-  - host: localhost
+  rules:
+  - host: new-lake.local
     http:
-      paths:      
+      paths:
       - pathType: Prefix
         path: /
         backend:
           service:
             name: new-lake-api-service
-            port: 
-              number: 80
+            port:
+              number: 5001
