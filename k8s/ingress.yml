@@ -2,11 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: new-lake-ingress
-  # annotations:
-  #   kubernetes.io/ingress.class: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
-
   rules:
   - host: new-lake.local
     http:

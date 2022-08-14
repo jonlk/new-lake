@@ -17,6 +17,13 @@ namespace NewLake.Api.Infrastructure.Services
         {
             item.LastUpdated = DateTime.Now;
 
+            var existingItem = await GetItemAsync(item.Key);
+            
+            if (existingItem != null)
+            {
+                item.PreviousValue = existingItem.Value;
+            }
+
             await _database
                 .SetAsync(item.Key, item.SerializeToByteArray());
 
