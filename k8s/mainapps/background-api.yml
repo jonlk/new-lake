@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: new-lake-background-api  
+  name: new-lake-background-api
+  namespace: vwlocal
 spec:
   selector:
     matchLabels:
@@ -31,12 +32,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: new-lake-background-api-service
+  namespace: vwlocal
 spec:
   selector:
-    app: new-lake-background-api
-  clusterIP: None
+    app: new-lake-background-api  
+  type: ClusterIP
   ports:
-    - protocol: TCP
+    - protocol: TCP 
       name: http-unsecured
       port: 80
-      targetPort: 80
+      targetPort: 80      

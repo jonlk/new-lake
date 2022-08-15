@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: new-lake-config
+  namespace: vwlocal
+data:
+  RedisHost: local-redis
+  QueueSettings__HostName: rabbitmq-service
+  QueueSettings__QueueName: local-test-queue
+  QueueSettings__Exchange: local-exchange
+  QueueSettings__Topic: local.topic
+  QueueSettings__RoutingKey: local_routing

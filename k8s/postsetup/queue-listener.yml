@@ -1,22 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: new-lake-background-api  
+  name: new-lake-queue-listener
+  namespace: vwlocal
 spec:
   selector:
     matchLabels:
-      app: new-lake-background-api
+      app: new-lake-queue-listener
   replicas: 1
   template:
     metadata:
       labels:
-        app: new-lake-background-api
+        app: new-lake-queue-listener
     spec:
       containers:
-      - name: new-lake-background-api
-        image: new-lake-background-api:latest
-        ports:
-        - containerPort: 80
+      - name: new-lake-queue-listener
+        image: new-lake-queue-listener:latest
+        envFrom:
+          - configMapRef: 
+              name: new-lake-config        
         resources:
           requests:
             memory: "64Mi"
@@ -30,13 +32,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: new-lake-background-api-service
+  name: new-lake-queue-listener-service
+  namespace: vwlocal
 spec:
   selector:
-    app: new-lake-background-api
-  clusterIP: None
-  ports:
-    - protocol: TCP
-      name: http-unsecured
-      port: 80
-      targetPort: 80
+    app: new-lake-queue-listener
+  clusterIP: None 
