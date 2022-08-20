@@ -1,7 +1,10 @@
+global using Google.Protobuf.WellKnownTypes;
 global using Grpc.Core;
+global using Grpc.Net.Client.Configuration;
 global using Grpc.Net.Client;
 global using Microsoft.Extensions.Options;
 global using NewLake.GrpcGenerator.Services;
 global using NewLake.GrpcGenerator;
 global using Serilog.Events;
 global using Serilog;
+global using static NewLake.GrpcGenerator.Services.NewLakeGrpcService;

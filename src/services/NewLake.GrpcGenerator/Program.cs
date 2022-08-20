@@ -14,7 +14,7 @@ IHost host = Host.CreateDefaultBuilder(args)
             .GetSection(nameof(ServiceSettings)));
 
         services.AddSingleton<IBulkPacketGenerator, BulkPacketGenerator>();
-        services.AddHostedService<GrpcAutoServer>();
+        services.AddHostedService<GrpcGeneratorService>();
     })
     .Build();
 

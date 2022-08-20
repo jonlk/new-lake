@@ -1,6 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
-
-namespace NewLake.GrpcGenerator.Services
+﻿namespace NewLake.GrpcGenerator.Services
 {
     public class BulkPacketGenerator : IBulkPacketGenerator
     {

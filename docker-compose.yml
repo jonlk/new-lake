@@ -25,8 +25,8 @@ services:
     environment:
       - DOTNET_ENVIRONMENT=Production
 
-  new-lake-grpc-server:
-    image: new-lake-grpc-server:latest
+  new-lake-grpc-generator:
+    image: new-lake-grpc-generator:latest
     build: 
       context: .
       dockerfile: src/services/NewLake.GrpcGenerator/Dockerfile
