@@ -14,7 +14,7 @@ namespace NewLake.Api.Controllers
         [HttpGet]
         public ActionResult<string> GetTestValue()
         {
-            var result = "Yak successful";
+            var result = "Test successful";
             return Ok(result);
         }
 
@@ -23,7 +23,6 @@ namespace NewLake.Api.Controllers
         public async Task<ActionResult<string>> GetBackgroundTestValue()
         {
             var result = await _backgroundClient.GetResultFromHttpClient();
-
             return Ok(result);
         }
     }

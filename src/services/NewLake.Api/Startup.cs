@@ -1,13 +1,13 @@
 ﻿namespace NewLake.Api
 {
     public class Startup
-    {       
+    {
         public IConfiguration _configuration { get; }
 
         public Startup(IConfiguration configuration)
         {
-            _configuration = configuration;  
-                     
+            _configuration = configuration;
+
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -15,10 +15,10 @@
             services.AddGrpc(opt =>
             {
                 opt.EnableDetailedErrors = true;
-            });         
+            });
 
             services
-                .AddCachingServices(_configuration)
+                //.AddCachingServices(_configuration)
                 .AddMessagingServices(_configuration)
                 .AddBackgroundHttpClient();
 
@@ -33,10 +33,7 @@
         {
             Log.Information($"Application started at: {DateTime.UtcNow} UTC");
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.AddExceptionHandling(env);
 
             app.UseRouting();
 

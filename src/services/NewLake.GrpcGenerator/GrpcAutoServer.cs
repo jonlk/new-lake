@@ -1,4 +1,6 @@
 
+
+using Grpc.Net.Client.Configuration;
 using static NewLake.GrpcGenerator.Services.NewLakeGrpcService;
 
 namespace NewLake.GrpcGenerator
@@ -22,7 +24,18 @@ namespace NewLake.GrpcGenerator
 
             if (_client == null)
             {
-                var channel = GrpcChannel.ForAddress(_serviceSettings.ServerUrl ?? "");
+                var channel = GrpcChannel.ForAddress(_serviceSettings.ServerUrl ?? "",
+                 new GrpcChannelOptions
+                 {
+                     Credentials = ChannelCredentials.Insecure,
+
+                     //round robin dispatch test 
+                     ServiceConfig = new ServiceConfig
+                     {
+                         LoadBalancingConfigs = { new RoundRobinConfig() }
+                     }
+                     
+                 });
                 _client = new NewLakeGrpcServiceClient(channel);
             }
         }

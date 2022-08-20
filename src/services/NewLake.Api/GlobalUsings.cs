@@ -4,7 +4,9 @@ global using FluentValidation;
 global using Grpc.Core;
 
 global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Hosting;
+global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Server.Kestrel.Core;
 global using Microsoft.Extensions.Configuration;
@@ -24,9 +26,11 @@ global using Serilog;
 
 global using StackExchange.Redis;
 
+global using System.IO;
 global using System.Linq;
 global using System.Net.Http;
 global using System.Net;
 global using System.Threading.Tasks;
 global using System.Threading;
 global using System;
+global using static System.Net.Mime.MediaTypeNames;
