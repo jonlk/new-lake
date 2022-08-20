@@ -18,12 +18,12 @@ spec:
         env:
         - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
           value: "true"
-        envFrom:
-          - configMapRef:
-              name: new-lake-config
         ports:
         - containerPort: 5001
         - containerPort: 5002
+        volumeMounts:
+          - mountPath: app/config
+            name: config-volume
         resources:
           requests:
             memory: "64Mi"
@@ -32,6 +32,10 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         imagePullPolicy: Never
+      volumes:
+      - name: config-volume
+        configMap:
+          name: new-lake-config
 
 ---
 apiVersion: v1
