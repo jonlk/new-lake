@@ -6,9 +6,17 @@ var logger = new LoggerConfiguration()
     .CreateLogger();
 
 IHost host = Host.CreateDefaultBuilder(args)
-    .UseSerilog(logger)   
-    .ConfigureServices((hostContext, services) =>
+    .ConfigureAppConfiguration(options =>
     {
+        options
+            .AddJsonFile("config/appsettings.json",
+                optional: true,
+                reloadOnChange: true);
+
+    })
+    .UseSerilog(logger)
+    .ConfigureServices((hostContext, services) =>
+    {    
         services.Configure<ServiceSettings>(hostContext
             .Configuration
             .GetSection(nameof(ServiceSettings)));
