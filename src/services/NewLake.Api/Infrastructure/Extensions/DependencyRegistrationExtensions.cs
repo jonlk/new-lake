@@ -4,17 +4,15 @@
     {
         public static IServiceCollection AddCachingServices(this IServiceCollection services, IConfiguration configuration)
         {
+            var redisHost = configuration["RedisHost"].ToString();
+            Log.Information($"Attempting to connect to Redis cache at: {redisHost}");
+
             int retryCount = 3;
 
             for (int i = 0; i <= retryCount; i++)
             {
                 try
                 {
-                    var redisHost = configuration["RedisHost"].ToString();
-
-                    Log.Information($"Attempting to connect to Redis cache at: {redisHost}");
-
-                    //test for k8s
                     var muxer = ConnectionMultiplexer.Connect($"{redisHost},allowAdmin=true");
 
                     muxer.GetServer(muxer.GetEndPoints().Single())
@@ -25,8 +23,7 @@
 
                     services.AddStackExchangeRedisCache(options =>
                     {
-                        options.Configuration = muxer.Configuration;
-                        //options.InstanceName = "CacheItem:";                
+                        options.Configuration = muxer.Configuration;                                    
                     });
 
                     services.AddDistributedMemoryCache();

@@ -3,14 +3,14 @@
     [ApiController]
     [Route("api/[controller]")]
     public class CacheController : ControllerBase
-    {        
+    {
         private readonly ICacheService<CacheItem> _cacheService;
         private readonly IConnectionMultiplexer _connectionMultiplexer;
 
-        public CacheController(        
+        public CacheController(
             ICacheService<CacheItem> cacheService,
             IConnectionMultiplexer connectionMultiplexer)
-        {     
+        {
             _cacheService = cacheService;
             _connectionMultiplexer = connectionMultiplexer;
         }
@@ -18,7 +18,7 @@
         [HttpPost]
         [Route("set")]
         public async Task<ActionResult<CacheItem>> SetValueAsync(CacheItem request)
-        {  
+        {
             var value = await _cacheService
                 .SetItemAsync(request);
 
@@ -30,16 +30,16 @@
                     await _connectionMultiplexer.GetSubscriber().UnsubscribeAllAsync();
                 });
 
-            return Ok(request);
+            return CreatedAtRoute(nameof(GetValueAsync), new { id = value.Key }, value.Key);
         }
 
         [HttpGet]
-        [Route("get/{id}")]
+        [Route("get/{id}", Name = nameof(GetValueAsync))]
         public async Task<ActionResult<CacheItem>> GetValueAsync(string id)
         {
             var value = await _cacheService.GetItemAsync(id);
 
-            if (value == null) { return NotFound($"Item with key {id} not found"); }
+            if (value == null) { return NotFound($"Item with key {id} not found"); }            
 
             return Ok(value);
         }

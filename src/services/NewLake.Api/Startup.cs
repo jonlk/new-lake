@@ -18,7 +18,7 @@
             });
 
             services
-                //.AddCachingServices(_configuration)
+                .AddCachingServices(_configuration)
                 .AddMessagingServices(_configuration)
                 .AddBackgroundHttpClient();
 
