@@ -62,12 +62,12 @@ namespace NewLake.GrpcGenerator
                     }
                     catch (RpcException ex)
                     {
-                        _logger.LogError($"The message packet was not sent " +
-                            $": Connection Refused", DateTimeOffset.Now);
+                        _logger.LogError($"The message packet was not sent: " +
+                            $"Connection Refused", DateTimeOffset.Now);
 
                         if (retryAttempt == _serviceSettings.RetryCount)
                         {
-                            _logger.LogCritical($"Unable to reach gRPC Server {_serviceSettings.ServerUrl}");
+                            _logger.LogCritical($"Unable to reach gRPC Server: {_serviceSettings.ServerUrl}");
                             await StopAsync(stoppingToken);
                         }
                         else

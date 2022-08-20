@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: new-lake-grpc-server  
+  name: new-lake-grpc-generator  
 spec:
   selector:
     matchLabels:
-      app: new-lake-grpc-server
+      app: new-lake-grpc-generator
   replicas: 1
   template:
     metadata:
       labels:
-        app: new-lake-grpc-server
+        app: new-lake-grpc-generator
     spec:
       containers:
-      - name: new-lake-grpc-server
-        image: new-lake-grpc-server:latest
+      - name: new-lake-grpc-generator
+        image: new-lake-grpc-generator:latest
         envFrom:
           - configMapRef: 
               name: new-lake-grpc-config
@@ -31,18 +31,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: new-lake-grpc-service
+  name: new-lake-grpc-generator-service
 spec:
   selector:
-    app: new-lake-grpc-server
+    app: new-lake-grpc-generator
   clusterIP: None
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: new-lake-grpc-config
-data:
-  ServiceSettings__DelayInterval: '10000'
-  ServiceSettings__MessageId: '1'
-  ServiceSettings__ServerUrl: 'http://new-lake-grpc-api-service:5002'
