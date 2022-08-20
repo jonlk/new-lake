@@ -17,8 +17,13 @@
                 opt.EnableDetailedErrors = true;
             });
 
+            //test settings for ioptionsmonitor
             services
-                .AddCachingServices(_configuration)
+                .Configure<TestSettings>(
+                    _configuration.GetSection(nameof(TestSettings)));
+
+            services
+                // .AddCachingServices(_configuration)
                 .AddMessagingServices(_configuration)
                 .AddBackgroundHttpClient();
 
