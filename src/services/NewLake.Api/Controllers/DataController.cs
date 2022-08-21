@@ -18,9 +18,8 @@ namespace NewLake.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
-        [Route("data")]
-        public async Task<ActionResult<TestEntity>> CreateDbTestValueAsync([FromBody] AddTestDataCommand command)
+        [HttpPost]        
+        public async Task<ActionResult> CreateDbTestValueAsync([FromBody] AddTestDataCommand command)
         {
             var validationResult = _testDataCommandValidator.Validate(command);
             if (!validationResult.IsValid) { return BadRequest(validationResult.Errors); }
