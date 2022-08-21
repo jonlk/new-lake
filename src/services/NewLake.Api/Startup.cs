@@ -24,6 +24,7 @@
                     _configuration.GetSection(nameof(TestSettings)));
 
             services
+                .AddDataService(_configuration)
                 .AddCachingServices(_configuration)
                 .AddMessagingServices(_configuration)
                 .AddBackgroundHttpClient();

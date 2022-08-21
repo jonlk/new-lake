@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: new-lake-sql
+spec:
+  serviceName: new-lake-sql-service
+  selector:
+    matchLabels:
+      app: new-lake-sql
+  replicas: 1  
+  template:
+    metadata:
+      labels:
+        app: new-lake-sql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: new-lake-sql
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        ports:
+        - containerPort: 1433 
+        env:
+          - name: ACCEPT_EULA
+            value: "Y"     
+          - name: SA_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: sql-sa-password
+                key: password
+        volumeMounts:
+            - mountPath: /var/opt/mssql
+              name: data
+  volumeClaimTemplates:
+    - metadata:
+         name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+            
+---               
+apiVersion: v1
+kind: Service
+metadata:
+  name: new-lake-sql-service
+spec:
+  selector:
+    app: new-lake-sql
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 1434
+      targetPort: 1433
+      nodePort: 31433
