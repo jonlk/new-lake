@@ -9,9 +9,9 @@ data:
         "Name": "name_2",
         "Value": "Value1"
       },
-      "RedisHost": "localhost",
+      "RedisHost": "local-redis",
       "QueueSettings": {
-        "HostName": "localhost",
+        "HostName": "rabbitmq-service",
         "QueueName": "local-test-queue",
         "Exchange": "local-exchange",
         "Topic": "local.topic",

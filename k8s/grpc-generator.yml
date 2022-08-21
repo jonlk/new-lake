@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: new-lake-grpc-generator  
 spec:
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: new-lake-grpc-generator

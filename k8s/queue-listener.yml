@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: new-lake-queue-listener  
 spec:
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: new-lake-queue-listener

@@ -3,10 +3,11 @@ kind: Deployment
 metadata:
   name: new-lake-background-api  
 spec:
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: new-lake-background-api
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
