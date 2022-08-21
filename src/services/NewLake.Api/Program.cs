@@ -34,7 +34,7 @@
             {
                 options.
                     AddJsonFile("config/appsettings.json", 
-                        optional: false, 
+                        optional: true, 
                         reloadOnChange: true);
             })
             .UseSerilog()

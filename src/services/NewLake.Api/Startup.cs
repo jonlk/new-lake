@@ -1,4 +1,6 @@
-﻿namespace NewLake.Api
+﻿
+
+namespace NewLake.Api
 {
     public class Startup
     {
@@ -7,11 +9,12 @@
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
-
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
+
             services.AddGrpc(opt =>
             {
                 opt.EnableDetailedErrors = true;
@@ -44,8 +47,14 @@
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<BulkInfoService>();
+                endpoints.MapHealthChecks("/health/readiness");
+                
+                endpoints.MapHealthChecks("/health/liveness", new HealthCheckOptions()
+                {
+                    Predicate = (_) => false
+                });
 
+                endpoints.MapGrpcService<BulkInfoService>();
                 endpoints.MapControllers();
             });
         }

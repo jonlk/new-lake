@@ -18,6 +18,24 @@ spec:
         env:
         - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
           value: "true"
+        readinessProbe:
+          httpGet:
+            path: /health/readiness
+            port: 5001
+          initialDelaySeconds: 10
+          timeoutSeconds: 30
+          periodSeconds: 60
+          successThreshold: 1
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /health/liveness
+            port: 5001
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 3      
         ports:
         - containerPort: 5001
         - containerPort: 5002
@@ -31,7 +49,7 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-        imagePullPolicy: Never
+        imagePullPolicy: Never        
       volumes:
       - name: config-volume
         configMap:
@@ -51,7 +69,6 @@ spec:
       name: http-unsecured
       port: 5001
       targetPort: 5001
-
 
 ---
 apiVersion: v1
