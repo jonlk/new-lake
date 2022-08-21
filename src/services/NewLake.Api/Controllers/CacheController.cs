@@ -16,7 +16,7 @@
         public async Task<ActionResult<CacheItem>> SetValueAsync(CacheItem request)
         {
             var value = await _cacheService
-                .SetItemAsync(request);
+                .SetAsync(request);
        
             return CreatedAtRoute(nameof(GetValueAsync), new { id = value.Key }, null);
         }
@@ -25,7 +25,7 @@
         [Route("get/{id}", Name = nameof(GetValueAsync))]
         public async Task<ActionResult<CacheItem>> GetValueAsync(string id)
         {
-            var value = await _cacheService.GetItemAsync(id);
+            var value = await _cacheService.GetAsync(id);
 
             if (value == null) { return NotFound($"Item with key {id} not found"); }
 
@@ -36,7 +36,7 @@
         [Route("delete/{id}")]
         public async Task<ActionResult<bool>> RemoveValueAsync(string id)
         {
-            await _cacheService.RemoveItemAsync(id);
+            await _cacheService.RemoveAsync(id);
             return Ok($"Item with key {id} deleted successfully");
         }
     }
