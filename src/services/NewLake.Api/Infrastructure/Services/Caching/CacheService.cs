@@ -1,46 +1,29 @@
-﻿namespace NewLake.Api.Infrastructure.Services
+public class CacheService : BaseCacheService<CacheItem>, ICacheService<CacheItem>
 {
-    public class CacheService<TCacheItem>
-        : ICacheService<TCacheItem>
-         where TCacheItem : CacheItemBase
+    public CacheService(IDistributedCache database)
+        : base(database) { }
+
+    public async override Task<CacheItem> SetAsync(CacheItem item)
     {
-        private readonly IDistributedCache _database;
+        item.LastUpdated = DateTime.Now;
 
-        public CacheService(IDistributedCache database)
+        var existingItem = await GetAsync(item.Key);
+
+        if (existingItem != null)
         {
-            _database = database;
+            item.PreviousValue = existingItem.Value;
         }
 
-        public async Task<TCacheItem> SetItemAsync(TCacheItem item)
-        {
-            item.LastUpdated = DateTime.Now;
+        return await base.SetAsync(item);
+    }
 
-            var existingItem = await GetItemAsync(item.Key);
-            
-            if (existingItem != null)
-            {
-                item.PreviousValue = existingItem.Value;
-            }
+    public async override Task<CacheItem> GetAsync(string key)
+    {
+        return await base.GetAsync(key);
+    }
 
-            await _database
-                .SetAsync(item.Key, item.SerializeToByteArray());
-
-            return item;
-        }
-
-        public async Task<TCacheItem> GetItemAsync(string key)
-        {
-            var bResult = await _database.GetAsync(key);
-
-            var result = ByteArrayExtensions
-                .Deserialize<TCacheItem>(bResult);
-
-            return result;
-        }
-
-        public async Task RemoveItemAsync(string key)
-        {
-            await _database.RemoveAsync(key);
-        }
+    public async override Task RemoveAsync(string key)
+    {
+        await base.RemoveAsync(key);
     }
 }

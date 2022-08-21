@@ -1,12 +1,11 @@
-﻿
-
-namespace NewLake.Api.Infrastructure.Extensions
+﻿namespace NewLake.Api.Infrastructure.Extensions
 {
     public static class DependencyRegistrationExtensions
     {
         public static IServiceCollection AddCachingServices(this IServiceCollection services, IConfiguration configuration)
         {
             var redisHost = configuration["RedisHost"].ToString();
+
             Log.Information($"Attempting to connect to Redis cache at: {redisHost}");
 
             int retryCount = 3;
@@ -21,7 +20,8 @@ namespace NewLake.Api.Infrastructure.Extensions
                         .ConfigSet("notify-keyspace-events", "Kh");
 
                     services.AddSingleton<IConnectionMultiplexer>(muxer);
-                    services.AddSingleton(typeof(ICacheService<>), typeof(CacheService<>));
+
+                    services.AddSingleton<ICacheService<CacheItem>, CacheService>();
 
                     services.AddStackExchangeRedisCache(options =>
                     {
@@ -41,7 +41,7 @@ namespace NewLake.Api.Infrastructure.Extensions
                                 .GetRequiredService<ICacheService<CacheItem>>();
 
                             var key = channel.ToString().Split(":")[1];
-                            var cacheItem = await cacheService.GetItemAsync(key);
+                            var cacheItem = await cacheService.GetAsync(key);
 
                             Log.Information($"Key: {key}, Upserted Value: {cacheItem.Value}");
                         });
@@ -68,9 +68,7 @@ namespace NewLake.Api.Infrastructure.Extensions
         public static IServiceCollection AddMessagingServices(this IServiceCollection services, IConfiguration configuration)
         {
             var queueSettings = configuration.GetSection("QueueSettings");
-
             services.Configure<QueueSettings>(queueSettings);
-
             services.AddSingleton(typeof(IMessageService<>), typeof(MessageService<>));
             return services;
         }
@@ -81,7 +79,6 @@ namespace NewLake.Api.Infrastructure.Extensions
             {
                 options.BaseAddress = new Uri("http://new-lake-background-service");
             });
-
             return services;
         }
     }
