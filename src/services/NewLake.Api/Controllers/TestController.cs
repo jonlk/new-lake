@@ -1,3 +1,5 @@
+
+
 namespace NewLake.Api.Controllers
 {
     [ApiController]
@@ -5,16 +7,20 @@ namespace NewLake.Api.Controllers
     public class TestController : ControllerBase
     {
         private readonly BackgroundHttpClient _backgroundClient;
+        private readonly TestSettings _testSettings;
 
-        public TestController(BackgroundHttpClient backgroundClient)
+        public TestController(
+            BackgroundHttpClient backgroundClient,
+            IOptionsMonitor<TestSettings> options)
         {
             _backgroundClient = backgroundClient;
+            _testSettings = options.CurrentValue;
         }
 
         [HttpGet]
         public ActionResult<string> GetTestValue()
         {
-            var result = "Test successful";
+            var result = _testSettings.Name;
             return Ok(result);
         }
 

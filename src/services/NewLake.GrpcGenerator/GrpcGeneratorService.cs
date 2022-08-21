@@ -63,7 +63,7 @@ namespace NewLake.GrpcGenerator
                     catch (RpcException ex)
                     {
                         _logger.LogError($"The message packet was not sent: " +
-                            $"Connection Refused", DateTimeOffset.Now);
+                            $"{ex.Message}", DateTimeOffset.Now);
 
                         if (retryAttempt == _serviceSettings.CurrentValue.RetryCount)
                         {

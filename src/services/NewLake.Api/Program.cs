@@ -30,22 +30,29 @@
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog()
-                .ConfigureWebHostDefaults(webBuilder =>
+            .ConfigureAppConfiguration(options =>
+            {
+                options.
+                    AddJsonFile("config/appsettings.json", 
+                        optional: true, 
+                        reloadOnChange: true);
+            })
+            .UseSerilog()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.ConfigureKestrel(options =>
                 {
-                    webBuilder.ConfigureKestrel(options =>
+                    options.Listen(IPAddress.Any, 5001, listenOptions =>
                     {
-                        options.Listen(IPAddress.Any, 5001, listenOptions =>
-                        {
-                            listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
-                        });
-                        options.Listen(IPAddress.Any, 5002, listenOptions =>
-                        {
-                            listenOptions.Protocols = HttpProtocols.Http2;
-                        });
+                        listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
                     });
-
-                    webBuilder.UseStartup<Startup>();
+                    options.Listen(IPAddress.Any, 5002, listenOptions =>
+                    {
+                        listenOptions.Protocols = HttpProtocols.Http2;
+                    });
                 });
+
+                webBuilder.UseStartup<Startup>();
+            });
     }
 }
