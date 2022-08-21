@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: seq-app
 spec:
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: seq-app
