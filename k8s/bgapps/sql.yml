@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: new-lake-sql
 spec:
+  serviceName: new-lake-sql-service
   selector:
     matchLabels:
       app: new-lake-sql
@@ -23,6 +24,17 @@ spec:
             value: "Y"     
           - name: SA_PASSWORD
             value: "Pass@word"
+        volumeMounts:
+            - mountPath: /var/opt/mssql
+              name: data
+  volumeClaimTemplates:
+    - metadata:
+         name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
             
 ---               
 apiVersion: v1
@@ -32,9 +44,9 @@ metadata:
 spec:
   selector:
     app: new-lake-sql
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 1434
       targetPort: 1433
       nodePort: 31433
-  type: NodePort
