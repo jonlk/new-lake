@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-
-namespace NewLake.Api.Infrastructure.Services
+﻿namespace NewLake.Api.Infrastructure.Services
 {
     public class CacheService<TCacheItem>
         : ICacheService<TCacheItem>
