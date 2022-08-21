@@ -3,6 +3,8 @@ global using FluentValidation;
 
 global using Grpc.Core;
 
+global using MediatR;
+
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -35,6 +37,7 @@ global using System.IO;
 global using System.Linq;
 global using System.Net.Http;
 global using System.Net;
+global using System.Reflection;
 global using System.Text;
 global using System.Threading.Tasks;
 global using System.Threading;
