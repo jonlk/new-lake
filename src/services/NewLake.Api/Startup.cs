@@ -1,4 +1,6 @@
-﻿namespace NewLake.Api
+﻿
+
+namespace NewLake.Api
 {
     public class Startup
     {
@@ -18,16 +20,19 @@
                 opt.EnableDetailedErrors = true;
             });
 
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+
             //test settings for ioptionsmonitor
             services
                 .Configure<TestSettings>(
                     _configuration.GetSection(nameof(TestSettings)));
 
             services
-                .AddDataService(_configuration)
+                .AddBackgroundHttpClient()
                 .AddCachingServices(_configuration)
+                .AddDataService(_configuration)
                 .AddMessagingServices(_configuration)
-                .AddBackgroundHttpClient();
+                .AddValidationService();
 
             services.AddControllers()
                     .AddFluentValidation(options =>

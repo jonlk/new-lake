@@ -6,16 +6,13 @@ namespace NewLake.Api.Controllers
     {
         private readonly BackgroundHttpClient _backgroundClient;
         private readonly TestSettings _testSettings;
-        private readonly NewLakeDbContext _newLakeDbContext;
 
         public TestController(
             BackgroundHttpClient backgroundClient,
-            IOptionsMonitor<TestSettings> options,
-            NewLakeDbContext newLakeDbContext)
+            IOptionsMonitor<TestSettings> options)
         {
             _backgroundClient = backgroundClient;
             _testSettings = options.CurrentValue;
-            _newLakeDbContext = newLakeDbContext;
         }
 
         [HttpGet]
@@ -24,20 +21,7 @@ namespace NewLake.Api.Controllers
         {
             var result = _testSettings.Name;
             return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("data/{id}")]
-        public async Task<ActionResult<TestEntity>> GetDbTestValueAsync(string id)
-        {
-            var query = _newLakeDbContext
-                .TestEntities
-                .Where(x => x.Id == Guid.Parse(id));
-            
-            var result = await query.FirstOrDefaultAsync();
-
-            return Ok(result);
-        }
+        }   
 
         [HttpGet]
         [Route("frombackground")]

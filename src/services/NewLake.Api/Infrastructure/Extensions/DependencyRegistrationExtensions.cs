@@ -91,5 +91,12 @@
 
             return services;
         }
+
+        public static IServiceCollection AddValidationService(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<CacheItem>, CacheItemValidator>();
+            services.AddScoped<IValidator<AddTestDataCommand>, AddTestDataCommandValidator>();
+            return services;
+        }
     }
 }
