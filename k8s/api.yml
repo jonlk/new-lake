@@ -16,9 +16,11 @@ spec:
       containers:
       - name: new-lake-api
         image: new-lake-api:latest
-        env:
-        - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
-          value: "true"
+        envFrom:
+          - configMapRef:
+              name: new-lake-config
+          - secretRef: 
+              name: new-lake-secret
         readinessProbe:
           httpGet:
             path: /health/readiness
@@ -40,9 +42,6 @@ spec:
         ports:
         - containerPort: 5001
         - containerPort: 5002
-        volumeMounts:
-          - mountPath: app/config
-            name: config-volume
         resources:
           requests:
             memory: "64Mi"
@@ -51,11 +50,6 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         imagePullPolicy: Never        
-      volumes:
-      - name: config-volume
-        configMap:
-          name: new-lake-config
-
 ---
 apiVersion: v1
 kind: Service
@@ -85,3 +79,26 @@ spec:
       name: http2-grpc
       port: 5002
       targetPort: 5002
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: new-lake-config
+data:
+  RedisHost: local-redis
+  QueueSettings__HostName: rabbitmq-service
+  QueueSettings__QueueName: local-test-queue
+  QueueSettings__Exchange: local-exchange
+  QueueSettings__Topic: local.topic
+  QueueSettings__RoutingKey: local_routing
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: new-lake-secret
+type: Opaque
+data:
+  TestSettings__Name: bmFtZV8xCg==
+  TestSettings__Value: dmFsdWVfMQo=

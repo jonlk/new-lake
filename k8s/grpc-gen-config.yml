@@ -3,19 +3,8 @@ kind: ConfigMap
 metadata:
   name: new-lake-grpc-config
 data:
-  appsettings.json: |-
-    {
-      "ServiceSettings": {
-        "DelayInterval": 1000,
-        "MessageId": 1,
-        "ServerUrl": "http://new-lake-grpc-api-service:5002",
-        "RetryCount": 5,
-        "RetryInterval": 5000
-      },
-      "Logging": {
-        "LogLevel": {
-          "Default": "Information",
-          "Microsoft.Hosting.Lifetime": "Information"
-        }
-      }
-    }
+  ServiceSettings__DelayInterval: '1000'
+  ServiceSettings__MessageId: '1'
+  ServiceSettings__ServerUrl: 'http://new-lake-grpc-api-service:5002'
+  ServiceSettings__RetryCount: '5'
+  ServiceSettings__RetryInterval: '5000'
