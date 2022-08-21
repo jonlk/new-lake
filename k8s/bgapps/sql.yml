@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: new-lake-sql
+spec:
+  selector:
+    matchLabels:
+      app: new-lake-sql
+  replicas: 1  
+  template:
+    metadata:
+      labels:
+        app: new-lake-sql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: new-lake-sql
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        ports:
+        - containerPort: 1433 
+        env:
+          - name: ACCEPT_EULA
+            value: "Y"     
+          - name: SA_PASSWORD
+            value: "Pass@word"
+            
+---               
+apiVersion: v1
+kind: Service
+metadata:
+  name: new-lake-sql-service
+spec:
+  selector:
+    app: new-lake-sql
+  ports:
+    - protocol: TCP
+      port: 1434
+      targetPort: 1433
+      nodePort: 31433
+  type: NodePort

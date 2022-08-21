@@ -7,7 +7,7 @@ public class BackgroundHttpClient
         _httpClient = httpClient;
     }
 
-    public async Task<string> GetResultFromHttpClient()
+    public async Task<string> GetResultFromHttpClientAsync()
     {
         //internal k8s service
         var request = new HttpRequestMessage(HttpMethod.Get, "http://new-lake-background-api-service/test");

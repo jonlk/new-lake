@@ -92,7 +92,9 @@ data:
   QueueSettings__Exchange: local-exchange
   QueueSettings__Topic: local.topic
   QueueSettings__RoutingKey: local_routing
-
+  TestSettings__Name: name_1
+  TestSettings__Value: value_1
+  
 ---
 apiVersion: v1
 kind: Secret
@@ -100,5 +102,4 @@ metadata:
   name: new-lake-secret
 type: Opaque
 data:
-  TestSettings__Name: bmFtZV8xCg==
-  TestSettings__Value: dmFsdWVfMQo=
+  ConnectionString: U2VydmVyPW5ldy1sYWtlLXNxbC1zZXJ2aWNlLDE0MzQ7RGF0YWJhc2U9TmV3TGFrZS5UZXN0RGF0YWJhc2U7VXNlciBJZD1zYTtQYXNzd29yZD1QYXNzQHdvcmQ7TXVsdGlwbGVBY3RpdmVSZXN1bHRTZXRzPXRydWU7Cg==

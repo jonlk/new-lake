@@ -81,5 +81,15 @@
             });
             return services;
         }
+
+        public static IServiceCollection AddDataService(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<NewLakeDbContext>(options =>
+            {
+                options.UseSqlServer(configuration["ConnectionString"]);
+            });
+
+            return services;
+        }
     }
 }
