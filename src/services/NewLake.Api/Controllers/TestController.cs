@@ -1,5 +1,3 @@
-
-
 namespace NewLake.Api.Controllers
 {
     [ApiController]

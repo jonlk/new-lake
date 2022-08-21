@@ -1,6 +1,4 @@
-﻿
-
-namespace NewLake.Api
+﻿namespace NewLake.Api
 {
     public class Startup
     {
@@ -26,7 +24,7 @@ namespace NewLake.Api
                     _configuration.GetSection(nameof(TestSettings)));
 
             services
-                // .AddCachingServices(_configuration)
+                .AddCachingServices(_configuration)
                 .AddMessagingServices(_configuration)
                 .AddBackgroundHttpClient();
 

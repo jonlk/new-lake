@@ -1,4 +1,6 @@
-﻿namespace NewLake.Api.Infrastructure.Extensions
+﻿
+
+namespace NewLake.Api.Infrastructure.Extensions
 {
     public static class DependencyRegistrationExtensions
     {
@@ -23,12 +25,26 @@
 
                     services.AddStackExchangeRedisCache(options =>
                     {
-                        options.Configuration = muxer.Configuration;                                    
+                        options.Configuration = muxer.Configuration;
                     });
 
                     services.AddDistributedMemoryCache();
 
                     Log.Information($"Successfully connected to Redis cache at: {redisHost}");
+
+                    muxer
+                        .GetSubscriber()
+                        .Subscribe("__keyspace@0__:*", async (channel, message) =>
+                        {
+                            var cacheService = services
+                                .BuildServiceProvider()
+                                .GetRequiredService<ICacheService<CacheItem>>();
+
+                            var key = channel.ToString().Split(":")[1];
+                            var cacheItem = await cacheService.GetItemAsync(key);
+
+                            Log.Information($"Key: {key}, Upserted Value: {cacheItem.Value}");
+                        });
 
                     break;
                 }
