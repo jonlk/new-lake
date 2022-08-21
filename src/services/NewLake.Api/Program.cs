@@ -29,14 +29,7 @@
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration(options =>
-            {
-                options.
-                    AddJsonFile("config/appsettings.json", 
-                        optional: true, 
-                        reloadOnChange: true);
-            })
+            Host.CreateDefaultBuilder(args)      
             .UseSerilog()
             .ConfigureWebHostDefaults(webBuilder =>
             {
