@@ -15,7 +15,7 @@ spec:
     spec:      
       containers:
       - name: new-lake-api
-        image: new-lake-api:latest
+        image: new-lake-api:1.0.0-alpha
         envFrom:
           - configMapRef:
               name: new-lake-config

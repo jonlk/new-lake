@@ -30,7 +30,7 @@ public class AddTestDataCommandHandler : IRequestHandler<AddTestDataCommand, Gui
         };
 
         _newLakeDbContext.TestEntities.Add(entity);
-        var result = await _newLakeDbContext.SaveChangesAsync();
+        await _newLakeDbContext.SaveChangesAsync();
         return entity.Id;
     }
 }

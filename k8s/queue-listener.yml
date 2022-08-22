@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: new-lake-queue-listener
-        image: new-lake-queue-listener:latest
+        image: new-lake-queue-listener:1.0.0-alpha
         envFrom:
           - configMapRef: 
               name: new-lake-config        

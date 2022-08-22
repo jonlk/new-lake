@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   new-lake-api:
-    image: new-lake-api:latest
+    image: new-lake-api:${APP_VERSION}
     build: 
       context: .
       dockerfile: src/services/NewLake.Api/Dockerfile
@@ -10,7 +10,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
 
   new-lake-background-api:
-    image: new-lake-background-api:latest
+    image: new-lake-background-api:${APP_VERSION}
     build: 
       context: .
       dockerfile: src/services/NewLake.Background.Api/Dockerfile
@@ -18,7 +18,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
 
   new-lake-queue-listener:
-    image: new-lake-queue-listener:latest
+    image: new-lake-queue-listener:${APP_VERSION}
     build: 
       context: .
       dockerfile: src/services/NewLake.Queue.Listener/Dockerfile
@@ -26,7 +26,7 @@ services:
       - DOTNET_ENVIRONMENT=Production
 
   new-lake-grpc-generator:
-    image: new-lake-grpc-generator:latest
+    image: new-lake-grpc-generator:${APP_VERSION}
     build: 
       context: .
       dockerfile: src/services/NewLake.GrpcGenerator/Dockerfile

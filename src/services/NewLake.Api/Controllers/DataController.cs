@@ -39,6 +39,5 @@ namespace NewLake.Api.Controllers
 
             return Ok(result);
         }
-
     }
 }

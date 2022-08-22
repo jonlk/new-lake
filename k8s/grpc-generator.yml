@@ -15,7 +15,10 @@ spec:
     spec:
       containers:
       - name: new-lake-grpc-generator
-        image: new-lake-grpc-generator:latest
+        image: new-lake-grpc-generator:1.0.0-alpha
+        envFrom:
+          - configMapRef:
+              name: new-lake-grpc-config
         resources:
           requests:
             memory: "64Mi"
@@ -23,14 +26,7 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-        volumeMounts:
-          - mountPath: app/config
-            name: config-volume
         imagePullPolicy: Never
-      volumes:
-      - name: config-volume
-        configMap:
-          name: new-lake-grpc-config
 ---
 apiVersion: v1
 kind: Service
