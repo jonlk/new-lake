@@ -15,7 +15,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 
                     services.Configure<QueueSettings>(queueConfigSettings);
                     services.AddHostedService<QueueListenerService>();
-                })                
+                })
                 .Build();
 
 await host.RunAsync();

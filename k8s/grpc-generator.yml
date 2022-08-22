@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: new-lake-grpc-generator
-        image: new-lake-grpc-generator:latest
+        image: new-lake-grpc-generator:1.0.0-alpha
         resources:
           requests:
             memory: "64Mi"
