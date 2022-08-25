@@ -22,6 +22,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
     - task: DockerCompose@0
+      displayName: Multi Container Build
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'DockerHub'
@@ -30,6 +31,7 @@ stages:
         includeSourceTags: true
         includeLatestTag: true
     - task: DockerCompose@0
+      displayName: Multi Container Push
       inputs:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'DockerHub'
