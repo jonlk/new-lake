@@ -86,7 +86,7 @@ kind: ConfigMap
 metadata:
   name: new-lake-config
 data:
-  RedisHost: local-redis
+  RedisHost: redis-service
   QueueSettings__HostName: rabbitmq-service
   QueueSettings__QueueName: local-test-queue
   QueueSettings__Exchange: local-exchange
