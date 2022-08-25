@@ -29,3 +29,11 @@ stages:
         action: 'Build services'
         includeSourceTags: true
         includeLatestTag: true
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'DockerHub'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Push services'
+        includeSourceTags: true
+        includeLatestTag: true
