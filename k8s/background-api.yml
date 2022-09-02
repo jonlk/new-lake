@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: new-lake-background-api
-        image: new-lake-background-api:1.0.0-alpha
+        image: vertwave/new-lake-background-api:latest
         ports:
         - containerPort: 80
         resources:
@@ -25,7 +25,9 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-        imagePullPolicy: Never
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred   
 
 ---
 apiVersion: v1

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: new-lake-queue-listener
-        image: new-lake-queue-listener:1.0.0-alpha
+        image: vertwave/new-lake-queue-listener
         envFrom:
           - configMapRef: 
               name: new-lake-config        
@@ -26,8 +26,10 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-        imagePullPolicy: Never
-
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+      
 ---
 apiVersion: v1
 kind: Service

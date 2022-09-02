@@ -10,7 +10,8 @@ resources:
 - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  - name: tag
+    value: $(Build.SourceBranchName).$(Build.BuildNumber).$(Build.BuildId)
 
 stages:
 - stage: Build
@@ -28,8 +29,8 @@ stages:
         dockerRegistryEndpoint: 'DockerHub'
         dockerComposeFile: '**/docker-compose.yml'
         action: 'Build services'
-        includeSourceTags: true
-        includeLatestTag: true
+        additionalImageTags: $(tag)
+
     - task: DockerCompose@0
       displayName: Multi Container Push
       inputs:
@@ -37,5 +38,4 @@ stages:
         dockerRegistryEndpoint: 'DockerHub'
         dockerComposeFile: '**/docker-compose.yml'
         action: 'Push services'
-        includeSourceTags: true
-        includeLatestTag: true
+        additionalImageTags: $(tag)

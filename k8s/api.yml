@@ -15,7 +15,7 @@ spec:
     spec:      
       containers:
       - name: new-lake-api
-        image: new-lake-api:1.0.0-alpha
+        image: vertwave/new-lake-api:latest
         envFrom:
           - configMapRef:
               name: new-lake-config
@@ -45,11 +45,14 @@ spec:
         resources:
           requests:
             memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
             cpu: "500m"
-        imagePullPolicy: Never        
+          limits:
+            memory: "64Mi"
+            cpu: "500m"
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+  
 ---
 apiVersion: v1
 kind: Service
