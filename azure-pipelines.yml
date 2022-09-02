@@ -32,20 +32,20 @@ stages:
         command: 'test'
         projects: '**/tests/*'
 
-    # - task: DockerCompose@0
-    #   displayName: Multi Container Build
-    #   inputs:
-    #     containerregistrytype: 'Container Registry'
-    #     dockerRegistryEndpoint: 'DockerHub'
-    #     dockerComposeFile: '**/docker-compose.yml'
-    #     action: 'Build services'
-    #     additionalImageTags: $(tag)
+    - task: DockerCompose@0
+      displayName: Multi Container Build
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'DockerHub'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Build services'
+        additionalImageTags: $(tag)
 
-    # - task: DockerCompose@0
-    #   displayName: Multi Container Push
-    #   inputs:
-    #     containerregistrytype: 'Container Registry'
-    #     dockerRegistryEndpoint: 'DockerHub'
-    #     dockerComposeFile: '**/docker-compose.yml'
-    #     action: 'Push services'
-    #     additionalImageTags: $(tag)
+    - task: DockerCompose@0
+      displayName: Multi Container Push
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'DockerHub'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Push services'
+        additionalImageTags: $(tag)
