@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: new-lake-grpc-generator
-        image: new-lake-grpc-generator:1.0.0-alpha
+        image: vertwave/new-lake-grpc-generator:latest
         envFrom:
           - configMapRef:
               name: new-lake-grpc-config
@@ -26,7 +26,9 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-        imagePullPolicy: Never
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred
 ---
 apiVersion: v1
 kind: Service
