@@ -53,7 +53,7 @@ stages:
     - task: replacetokens@5
       displayName: Replace YAML Tokens
       inputs:
-        targetFiles: '**/src/k8s/_deploy/*.yml'
+        targetFiles: '**/k8s/_deploy/*.yml'
         encoding: 'auto'
         tokenPattern: 'azpipelines'
         writeBOM: true
@@ -68,6 +68,6 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: Publish Manifests
       inputs:
-        PathtoPublish: '$(System.DefaultWorkingDirectory)/src/k8s/_deploy'
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/k8s/_deploy'
         ArtifactName: 'drop'
         publishLocation: 'Container'
