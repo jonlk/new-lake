@@ -90,4 +90,4 @@ metadata:
   name: new-lake-secret
 type: Opaque
 data:
-  ConnectionString: U2VydmVyPW5ldy1sYWtlLXNxbC1zZXJ2aWNlLDE0MzQ7RGF0YWJhc2U9TmV3TGFrZS5UZXN0RGF0YWJhc2U7VXNlciBJZD1zYTtQYXNzd29yZD1QYXNzQHdvcmQ7TXVsdGlwbGVBY3RpdmVSZXN1bHRTZXRzPXRydWU7Cg==
+  ConnectionString: $(SqlServer.ConnectionString)
