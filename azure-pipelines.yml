@@ -58,7 +58,7 @@ stages:
         tokenPattern: 'azpipelines'
         writeBOM: true
         actionOnMissing: 'warn'
-        keepToken: false
+        keepToken: true
         actionOnNoFiles: 'continue'
         enableTransforms: false
         enableRecursion: false
