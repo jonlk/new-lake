@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: new-lake-grpc-generator
-        image: vertwave/new-lake-grpc-generator:latest
+        image: vertwave/new-lake-grpc-generator:$(BuildTag)
         envFrom:
           - configMapRef:
               name: new-lake-grpc-config
