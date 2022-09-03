@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: new-lake-grpc-config
+data:
+  ServiceSettings__DelayInterval: $(GrpcService.DelayInterval) #'1000'
+  ServiceSettings__MessageId: $(GrpcService.MessageId) #'1'
+  ServiceSettings__ServerUrl: $(GrpcService.ServerUrl) #'http://new-lake-grpc-api-service:5002'
+  ServiceSettings__RetryCount: $(GrpcService.RetryCount) #'5'
+  ServiceSettings__RetryInterval: $(GrpcService.RetryInterval) #'5000'

@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: new-lake-api
+spec:
+  revisionHistoryLimit: $(RevisionHistoryLimit)
+  selector:
+    matchLabels:
+      app: new-lake-api  
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: new-lake-api  
+    spec:      
+      containers:
+      - name: new-lake-api
+        image: vertwave/new-lake-api:$(BuildTag)
+        envFrom:
+          - configMapRef:
+              name: new-lake-config
+          - secretRef: 
+              name: new-lake-secret
+        readinessProbe:
+          httpGet:
+            path: /health/readiness
+            port: 5001
+          initialDelaySeconds: 10
+          timeoutSeconds: 30
+          periodSeconds: 60
+          successThreshold: 1
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /health/liveness
+            port: 5001
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 15
+          successThreshold: 1
+          failureThreshold: 3      
+        ports:
+        - containerPort: 5001
+        - containerPort: 5002
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "64Mi"
+            cpu: "500m"
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: new-lake-api-service
+spec:
+  selector:
+    app: new-lake-api
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      name: http-unsecured
+      port: 5001
+      targetPort: 5001
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: new-lake-grpc-api-service
+spec:
+  selector:
+    app: new-lake-api
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      name: http2-grpc
+      port: 5002
+      targetPort: 5002
+        
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: new-lake-secret
+type: Opaque
+data:
+  ConnectionString: U2VydmVyPW5ldy1sYWtlLXNxbC1zZXJ2aWNlLDE0MzQ7RGF0YWJhc2U9TmV3TGFrZS5UZXN0RGF0YWJhc2U7VXNlciBJZD1zYTtQYXNzd29yZD1QYXNzQHdvcmQ7TXVsdGlwbGVBY3RpdmVSZXN1bHRTZXRzPXRydWU7Cg==

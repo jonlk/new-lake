@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: new-lake-config
+data:
+  RedisHost: $(RedisHost) #redis-service
+  QueueSettings__HostName: $(QueueSettings.HostName) #rabbitmq-service
+  QueueSettings__QueueName: $(QueueSettings.QueueName) #local-test-queue
+  QueueSettings__Exchange: $(QueueSettings.Exchange) #local-exchange
+  QueueSettings__Topic: $(QueueSettings.Topic) #local.topic
+  QueueSettings__RoutingKey: $(QueueSettings.RoutingKey) #local_routing
+
+  TestSettings__Name: $(TestSettings.Name) #name_1
+  TestSettings__Value: $(TestSettings.Value) #value_1
