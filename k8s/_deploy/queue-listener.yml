@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: new-lake-queue-listener
-        image: vertwave/new-lake-queue-listener
+        image: vertwave/new-lake-queue-listener:$(BuildTag)
         envFrom:
           - configMapRef: 
               name: new-lake-config        
