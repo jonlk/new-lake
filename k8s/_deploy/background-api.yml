@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: new-lake-background-api  
+spec:
+  revisionHistoryLimit: $(RevisionHistoryLimit)
+  selector:
+    matchLabels:
+      app: new-lake-background-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: new-lake-background-api
+    spec:
+      containers:
+      - name: new-lake-background-api
+        image: vertwave/new-lake-background-api:$(BuildTag)
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred   
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: new-lake-background-api-service
+spec:
+  selector:
+    app: new-lake-background-api
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      name: http-unsecured
+      port: 80
+      targetPort: 80
