@@ -1,6 +1,6 @@
 
-trigger:
-- development
+# trigger:
+# - development
 
 pr: none
 
