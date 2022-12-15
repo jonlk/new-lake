@@ -26,9 +26,9 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-        imagePullPolicy: Always
-      imagePullSecrets:
-      - name: regcred
+        imagePullPolicy: Never
+      # imagePullSecrets:
+      # - name: regcred
 ---
 apiVersion: v1
 kind: Service
