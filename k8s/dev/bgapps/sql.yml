@@ -54,12 +54,12 @@ spec:
       targetPort: 1433
       nodePort: 31433
       
-# ---
-# apiVersion: v1
-# kind: Secret
-# type: Opaque
-# metadata:
-#   name: sql-sa-password
-#   namespace: default
-# data:
-#   password: UGFzc0B3b3JkCg==
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: sql-sa-password
+  namespace: default
+data:
+  password: UGFzc0B3b3Jk
