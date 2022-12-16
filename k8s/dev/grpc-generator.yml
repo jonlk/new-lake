@@ -38,3 +38,15 @@ spec:
   selector:
     app: new-lake-grpc-generator
   clusterIP: None
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: new-lake-grpc-config
+data:
+  ServiceSettings__DelayInterval: '1000'
+  ServiceSettings__MessageId: '1'
+  ServiceSettings__ServerUrl: 'http://new-lake-grpc-api-service:5002'
+  ServiceSettings__RetryCount: '5'
+  ServiceSettings__RetryInterval: '5000'
