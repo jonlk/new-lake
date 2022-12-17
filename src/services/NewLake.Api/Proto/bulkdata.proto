@@ -6,7 +6,7 @@ import "enums.proto";
 import "google/protobuf/timestamp.proto";
 
 service NewLakeGrpcService{
-	rpc SendBulkMessage (MessagePacket) returns (ReturnMessage);
+	rpc ReceiveBulkMessage (MessagePacket) returns (ReturnMessage);
 }
 
 message ReturnMessage{
