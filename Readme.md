@@ -32,14 +32,27 @@ It may take a couple of minutes for all of the images to build. Once the build p
 
 `docker images`
 
-and confirm the **four** vertwave/<*image name*> images are shown.
+and confirm the **four** vertwave/new-lake-<*app name*> images are shown.
+
+---
+### Setting up the namespace:
+1. In the terminal shell, navigate to the **'k8s/'** directory.
+2. Run the following: `kubectl apply -f namespace.yml`
+3. Switch to the new namespace: `kubectl config set-context --current --namespace=new-lake`
+---
+### Setting up the monitoring:
+Seq is a centralized logging visualization tool built for microservices monitoring. Find out more about it [here](https://datalust.co/seq)
+
+1. In the terminal shell, navigate to the **'k8s/dev/bgapps'** directory.
+2. Run the following: `kubectl apply -f seq.yml`
+3. 
 
 ---
 *Recommend running in stages as running all of the background services at once will be a heavy load on most machines*
 
 ---
 Redis StatefulSet phase:
-1. In the terminal shell, navigate to the **'k8s/bgapps'** folder
+1. In the terminal shell, navigate to the **'k8s/dev/bgapps'** directory.
 2. Run the following: `kubectl apply -f redis`
 3. Run the following: `kubectl get all` to ensure the Redis stateful set has started.
 
