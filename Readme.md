@@ -37,14 +37,14 @@ and confirm the **four** vertwave/new-lake-<*app name*> images are shown.
 ---
 ### Setting up the namespace:
 1. In the terminal shell, navigate to the **'k8s/'** directory.
-2. Run the following: `kubectl apply -f namespace.yml`
-3. Switch to the new namespace: `kubectl config set-context --current --namespace=new-lake`
+2. Run the following: `kubectl apply -f namespace.yml`.
+3. Switch to the new namespace: `kubectl config set-context --current --namespace=new-lake`.
 ---
 ### Setting up the monitoring:
-Seq is a centralized logging visualization tool built for microservices monitoring. Find out more about it [here](https://datalust.co/seq)
+Seq is a centralized logging visualization tool built for microservices monitoring. Find out more about it [here](https://datalust.co/seq).
 
 1. In the terminal shell, navigate to the **'k8s/dev/bgapps'** directory.
-2. Run the following: `kubectl apply -f seq.yml`
+2. Run the following: `kubectl apply -f seq.yml`.
 3. Run the following: `kubectl get all` to ensure the Seq tool has started.
 4. Note the NodePort number in the service/seq-service. It should be 31534.
 5. Run the following to get the IP Address for the Minikube cluster. `minikube ip`.
@@ -54,6 +54,9 @@ Seq is a centralized logging visualization tool built for microservices monitori
 *Recommend running in stages as running all of the background services at once will be a heavy load on most machines!!!*
 
 ---
+### Setting up the Redis cache:
+Redis is a high-availability, low-latency, in-memory NoSQL cache with optional durability that can be used for anything from a key-value store to a query accelerator. Find more about it [here](https://redis.io/).
+
 Redis StatefulSet phase:
 1. In the terminal shell, navigate to the **'k8s/dev/bgapps'** directory.
 2. Run the following: `kubectl apply -f redis`
