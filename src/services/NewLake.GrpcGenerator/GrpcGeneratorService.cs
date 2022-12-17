@@ -52,7 +52,7 @@ namespace NewLake.GrpcGenerator
 
                     try
                     {
-                        var result = await _client.SendBulkMessageAsync(pkt);
+                        var result = await _client.ReceiveBulkMessageAsync(pkt);
 
                         _logger.LogInformation($"{result.ReturnInfo}", DateTimeOffset.Now);
 

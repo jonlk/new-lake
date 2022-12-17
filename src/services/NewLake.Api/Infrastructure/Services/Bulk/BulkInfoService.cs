@@ -11,7 +11,7 @@ namespace NewLake.Api.Infrastructure.Services.Bulk
             _logger = logger;
         }
 
-        public override async Task<ReturnMessage> SendBulkMessage(MessagePacket request, ServerCallContext context)
+        public override async Task<ReturnMessage> ReceiveBulkMessage(MessagePacket request, ServerCallContext context)
         {
             _logger.LogInformation($"Receiving Packet Id: {request.PacketId}");
 

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: new-lake-api
+  namespace: new-lake
 spec:
   revisionHistoryLimit: 0
   selector:
@@ -58,6 +59,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: new-lake-api-service
+  namespace: new-lake
 spec:
   selector:
     app: new-lake-api
@@ -73,6 +75,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: new-lake-grpc-api-service
+  namespace: new-lake
 spec:
   selector:
     app: new-lake-api
@@ -88,6 +91,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: new-lake-config
+  namespace: new-lake
 data:
   RedisHost: redis-service
   QueueSettings__HostName: rabbitmq-service
@@ -103,6 +107,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: new-lake-secret
+  namespace: new-lake
 type: Opaque
 data:
   ConnectionString: U2VydmVyPW5ldy1sYWtlLXNxbC1zZXJ2aWNlLDE0MzQ7RGF0YWJhc2U9TmV3TGFrZS5UZXN0RGF0YWJhc2U7VXNlciBJZD1zYTtQYXNzd29yZD1QYXNzQHdvcmQ7TXVsdGlwbGVBY3RpdmVSZXN1bHRTZXRzPXRydWU7Cg==
