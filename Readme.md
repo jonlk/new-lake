@@ -16,6 +16,8 @@ Install [Docker Engine](https://docs.docker.com/engine/) or [Docker Desktop](htt
 
 **In a terminal shell, run the following:**
 
+`minikube start`
+
 `minikube addons enable registry`
 
 `minikube addons enable ingress`
@@ -59,6 +61,16 @@ Redis is a high-availability, low-latency, in-memory NoSQL cache with optional d
 
 Redis StatefulSet phase:
 1. In the terminal shell, navigate to the **'k8s/dev/bgapps'** directory.
-2. Run the following: `kubectl apply -f redis`
+2. Run the following: `kubectl apply -f redis` to run all of the manifests in the folder.
 3. Run the following: `kubectl get all` to ensure the Redis stateful set has started.
 
+---
+### Setting up and starting the New Lake Api
+This Api will be the main entry point for interacting with all of the services for this demo.
+1. In the terminal shell, navigate to the **'k8s/dev'** directory.
+2. Run the following: `kubectl apply -f api.yml` to start the New Lake Api service.
+3. It will take about 30 seconds for the liveness and readiness probes to complete.
+4. Run the following: `kubectl get all` to ensure the New Lake Api has started.
+5. Run the following: `kubectl apply -f ingress.yml`. The ingress will allow external access to the service.
+6. Open the hosts file on your machine. The location will vary depending on your OS and you will probably need to open it with administrative rights. Once you have located and opened it, add the following line: <*your_minikube_ip_address*> TABSPACE `new-lake.local` . This will map the host named in the **ingress.yml** file to your Minikube cluster.
+   1. *You can now also use this in place of the ip address for the Seq application listed above*
