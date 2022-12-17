@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: new-lake-queue-listener  
+  name: new-lake-queue-listener
+  namespace: new-lake
 spec:
   revisionHistoryLimit: 0
   selector:
@@ -35,6 +36,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: new-lake-queue-listener-service
+  namespace: new-lake
 spec:
   selector:
     app: new-lake-queue-listener

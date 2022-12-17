@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: new-lake-sql
+  namespace: new-lake
 spec:
   serviceName: new-lake-sql-service
   selector:
@@ -29,10 +30,11 @@ spec:
                 key: password
         volumeMounts:
             - mountPath: /var/opt/mssql
-              name: data
+              name: data              
   volumeClaimTemplates:
     - metadata:
          name: data
+         namespace: new-lake
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
@@ -44,6 +46,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: new-lake-sql-service
+  namespace: new-lake
 spec:
   selector:
     app: new-lake-sql
@@ -60,6 +63,6 @@ kind: Secret
 type: Opaque
 metadata:
   name: sql-sa-password
-  namespace: default
+  namespace: new-lake
 data:
   password: UGFzc0B3b3Jk
