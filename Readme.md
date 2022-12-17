@@ -23,9 +23,23 @@ Install [Docker Engine](https://docs.docker.com/engine/) or [Docker Desktop](htt
 `eval $(minikube docker-env)` *this binds the local Docker environment to the Minikube registry.*
 
 ---
+
+In the terminal shell, navigate to the repository root directory and run the following:
+
+`docker-compose build`
+
+It may take a couple of minutes for all of the images to build. Once the build process is completed, run the following:
+
+`docker images`
+
+and confirm the **four** vertwave/<*image name*> images are shown.
+
+---
 *Recommend running in stages as running all of the background services at once will be a heavy load on most machines*
 
-Redis phase:
+---
+Redis StatefulSet phase:
 1. In the terminal shell, navigate to the **'k8s/bgapps'** folder
 2. Run the following: `kubectl apply -f redis`
+3. Run the following: `kubectl get all` to ensure the Redis stateful set has started.
 
