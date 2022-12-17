@@ -45,10 +45,13 @@ Seq is a centralized logging visualization tool built for microservices monitori
 
 1. In the terminal shell, navigate to the **'k8s/dev/bgapps'** directory.
 2. Run the following: `kubectl apply -f seq.yml`
-3. 
-
+3. Run the following: `kubectl get all` to ensure the Seq tool has started.
+4. Note the NodePort number in the service/seq-service. It should be 31534.
+5. Run the following to get the IP Address for the Minikube cluster. `minikube ip`.
+6. Open a new browser instance and in the address bar, enter <*your_minikube_ip_address*>:31534.
+7. The Seq web application should launch. Note there is no output at the moment.   
 ---
-*Recommend running in stages as running all of the background services at once will be a heavy load on most machines*
+*Recommend running in stages as running all of the background services at once will be a heavy load on most machines!!!*
 
 ---
 Redis StatefulSet phase:
