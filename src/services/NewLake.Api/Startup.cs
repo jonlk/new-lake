@@ -41,7 +41,8 @@ namespace NewLake.Api
                     policy
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .AllowAnyOrigin();
+                    .AllowAnyOrigin()
+                    .WithExposedHeaders("*");
                 });
             });
 
@@ -61,7 +62,7 @@ namespace NewLake.Api
             app.UseRouting();
 
             app.UseCors("AllowAll");
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecks("/health/readiness");
