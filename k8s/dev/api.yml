@@ -63,12 +63,13 @@ metadata:
 spec:
   selector:
     app: new-lake-api
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - protocol: TCP
       name: http-unsecured
       port: 5001
       targetPort: 5001
+      nodePort: 31501
 
 ---
 apiVersion: v1
