@@ -73,4 +73,11 @@ This Api will be the main entry point for interacting with all of the services f
 4. Run the following: `kubectl get all` to ensure the New Lake Api has started.
 5. Run the following: `kubectl apply -f ingress.yml`. The ingress will allow external access to the service.
 6. Open the hosts file on your machine. The location will vary depending on your OS and you will probably need to open it with administrative rights. Once you have located and opened it, add the following line: <*your_minikube_ip_address*> TABSPACE `new-lake.local` . This will map the host named in the **ingress.yml** file to your Minikube cluster.
-   1. *You can now also use this in place of the ip address for the Seq application listed above*
+
+*NOTE: You can now also use this host name in place of the ip address for the Seq application listed above*
+
+## Api/Redis cache - Postman Test
+
+1. Run the **POST CacheSet** request , you should receive a **Status: 201 Created**
+2. In the Response Headers, find the key Location and note the URL value. This is the URL that should be supplied to retrieve the data.
+
