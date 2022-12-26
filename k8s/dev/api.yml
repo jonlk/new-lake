@@ -16,7 +16,7 @@ spec:
     spec:      
       containers:
       - name: new-lake-api
-        image: vertwave/new-lake-api:latest
+        image: vertwave/new-lake-api:1.0.0
         envFrom:
           - configMapRef:
               name: new-lake-config
