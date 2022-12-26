@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: new-lake-background-api
-        image: vertwave/new-lake-background-api:latest
+        image: vertwave/new-lake-background-api:1.0.0
         ports:
         - containerPort: 80
         resources:
