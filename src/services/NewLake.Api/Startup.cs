@@ -34,6 +34,18 @@ namespace NewLake.Api
                 .AddMessagingServices(_configuration)
                 .AddValidationService();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin()
+                    .WithExposedHeaders("*");
+                });
+            });
+
             services.AddControllers()
                     .AddFluentValidation(options =>
                     {
@@ -49,10 +61,12 @@ namespace NewLake.Api
 
             app.UseRouting();
 
+            app.UseCors("AllowAll");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecks("/health/readiness");
-                
+
                 endpoints.MapHealthChecks("/health/liveness", new HealthCheckOptions()
                 {
                     Predicate = (_) => false

@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: new-lake-grpc-generator  
+  name: new-lake-grpc-generator
+  namespace: new-lake
 spec:
   revisionHistoryLimit: 0
   selector:
@@ -15,7 +16,7 @@ spec:
     spec:
       containers:
       - name: new-lake-grpc-generator
-        image: vertwave/new-lake-grpc-generator:latest
+        image: vertwave/new-lake-grpc-generator:1.0.0
         envFrom:
           - configMapRef:
               name: new-lake-grpc-config
@@ -34,7 +35,21 @@ apiVersion: v1
 kind: Service
 metadata:
   name: new-lake-grpc-generator-service
+  namespace: new-lake
 spec:
   selector:
     app: new-lake-grpc-generator
   clusterIP: None
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: new-lake-grpc-config
+  namespace: new-lake
+data:
+  ServiceSettings__DelayInterval: '1000'
+  ServiceSettings__MessageId: '1'
+  ServiceSettings__ServerUrl: 'http://new-lake-grpc-api-service:5002'
+  ServiceSettings__RetryCount: '5'
+  ServiceSettings__RetryInterval: '5000'

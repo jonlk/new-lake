@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis-ss  
+  name: redis-ss
+  namespace: new-lake
 spec:
   serviceName: redis-service
   replicas: 1
@@ -56,6 +57,7 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: redis-claim
+      namespace: new-lake
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
@@ -63,6 +65,7 @@ spec:
           storage: 1Gi
   - metadata:
       name: redis-data
+      namespace: new-lake
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
