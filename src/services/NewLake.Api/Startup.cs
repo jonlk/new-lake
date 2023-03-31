@@ -46,11 +46,9 @@ namespace NewLake.Api
                 });
             });
 
-            services.AddControllers()
-                    .AddFluentValidation(options =>
-                    {
-                        options.RegisterValidatorsFromAssemblyContaining<CacheItemValidator>();
-                    });
+            services
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
