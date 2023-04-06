@@ -1,7 +1,7 @@
-FROM mcr.microsoft.com/dotnet/runtime:6.0-jammy AS base
+FROM mcr.microsoft.com/dotnet/runtime:7.0-jammy AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy AS build
 WORKDIR /src
 
 COPY ["src/services/NewLake.GrpcGenerator/", "/src/NewLake.GrpcGenerator/"]
