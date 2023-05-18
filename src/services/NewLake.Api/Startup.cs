@@ -49,6 +49,8 @@ namespace NewLake.Api
             services
                 .AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
+
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

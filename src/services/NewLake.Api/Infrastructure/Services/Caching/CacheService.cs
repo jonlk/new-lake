@@ -12,6 +12,11 @@ public class CacheService : BaseCacheService<CacheItem>, ICacheService<CacheItem
         if (existingItem != null)
         {
             item.PreviousValue = existingItem.Value;
+            item.Organization.Id = existingItem.Organization.Id;
+        }
+        else
+        {
+            item.Organization.Id = Guid.NewGuid();
         }
 
         return await base.SetAsync(item);

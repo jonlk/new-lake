@@ -13,5 +13,6 @@ namespace NewLake.Api.Model
 
     public class CacheItem : CacheItemBase
     {
+        public Organization Organization { get; set; }
     }
 }
