@@ -8,16 +8,16 @@
 
         public CacheController(ICacheService<CacheItem> cacheService)
         {
-            _cacheService = cacheService;            
+            _cacheService = cacheService;
         }
 
         [HttpPost]
         [Route("set")]
         public async Task<ActionResult<CacheItem>> SetValueAsync(CacheItem request)
-        {
+        {   
             var value = await _cacheService
                 .SetAsync(request);
-       
+
             return CreatedAtRoute(nameof(GetValueAsync), new { id = value.Key }, null);
         }
 
