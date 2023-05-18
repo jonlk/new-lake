@@ -4,40 +4,38 @@
     [Route("api/[controller]")]
     public class CacheController : ControllerBase
     {
-        private readonly ICacheService<CacheItem> _cacheService;
+        private readonly IMediator _mediator;
 
-        public CacheController(ICacheService<CacheItem> cacheService)
+        public CacheController(IMediator mediator)
         {
-            _cacheService = cacheService;
+            _mediator = mediator;
         }
 
         [HttpPost]
         [Route("set")]
-        public async Task<ActionResult<CacheItem>> SetValueAsync(CacheItem request)
-        {   
-            var value = await _cacheService
-                .SetAsync(request);
-
-            return CreatedAtRoute(nameof(GetValueAsync), new { id = value.Key }, null);
+        public async Task<ActionResult> SetValueAsync([FromBody] AddCacheItemCommand command)
+        {            
+            var value = await _mediator.Send(command);
+            return CreatedAtRoute(nameof(GetValueAsync), new { key = value }, null);
         }
 
         [HttpGet]
-        [Route("get/{id}", Name = nameof(GetValueAsync))]
-        public async Task<ActionResult<CacheItem>> GetValueAsync(string id)
+        [Route("get/{key}", Name = nameof(GetValueAsync))]
+        public async Task<ActionResult<CacheItem>> GetValueAsync(string key)
         {
-            var value = await _cacheService.GetAsync(id);
-
-            if (value == null) { return NotFound($"Item with key {id} not found"); }
-
-            return Ok(value);
+            var query = new CacheItemQuery { Key = key };
+            var result = await _mediator.Send(query);
+            if (result == null) { return NotFound($"Item with key {result.Key} not found"); }
+            return Ok(result);
         }
 
         [HttpDelete]
-        [Route("delete/{id}")]
-        public async Task<ActionResult<bool>> RemoveValueAsync(string id)
+        [Route("delete/{key}")]
+        public async Task<ActionResult<bool>> RemoveValueAsync(string key)
         {
-            await _cacheService.RemoveAsync(id);
-            return Ok($"Item with key {id} deleted successfully");
+            var command = new RemoveCacheItemCommand { Key = key };
+            var result = await _mediator.Send(command);
+            return Ok($"Item with key {key} deleted successfully");
         }
     }
 }
