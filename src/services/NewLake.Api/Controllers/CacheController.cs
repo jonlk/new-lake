@@ -25,7 +25,7 @@
         {
             var query = new CacheItemQuery { Key = key };
             var result = await _mediator.Send(query);
-            if (result == null) { return NotFound($"Item with key {result.Key} not found"); }
+            if (result == null) { return NotFound($"Item with key {key} not found"); }
             return Ok(result);
         }
 

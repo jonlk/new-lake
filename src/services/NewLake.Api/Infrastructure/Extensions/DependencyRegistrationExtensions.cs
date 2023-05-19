@@ -57,7 +57,8 @@
                     }
                     else
                     {
-                        Log.Error($"Failed connecting to caching services. Caching Services Unavailable", ex);
+                        Log.Fatal($"Failed connecting to caching services. Application unavailble. Please check cache and network services and try again!", ex);                        
+                        Environment.Exit(-1);
                     }
                 }
             }
