@@ -1,6 +1,7 @@
 # New Lake
 ## Portable Application Cluster with Kubernetes
-### Using .Net6, MSSQL Server 2019, gRPC, Redis, RabbitMq and Seq
+### Using .Net7, MSSQL Server 2019, gRPC, Redis, RabbitMq and Seq
+*Now updated for .NET 7
 ---
 *These instructions are for Minikube and the Docker Engine (not Docker Desktop) on Ubuntu 22.04.*
 
