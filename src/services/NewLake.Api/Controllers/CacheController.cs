@@ -5,16 +5,22 @@
     public class CacheController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IValidator<AddCacheItemCommand> _addCacheItemCommandValidator;
 
-        public CacheController(IMediator mediator)
+        public CacheController(
+            IMediator mediator,
+            IValidator<AddCacheItemCommand> addCacheItemCommandValidator)
         {
             _mediator = mediator;
+            _addCacheItemCommandValidator = addCacheItemCommandValidator;
         }
 
         [HttpPost]
         [Route("set")]
         public async Task<ActionResult> SetValueAsync([FromBody] AddCacheItemCommand command)
-        {            
+        {
+            var validationResult = _addCacheItemCommandValidator.Validate(command);
+            if (!validationResult.IsValid) { return BadRequest(validationResult.Errors); }
             var value = await _mediator.Send(command);
             return CreatedAtRoute(nameof(GetValueAsync), new { key = value }, null);
         }
